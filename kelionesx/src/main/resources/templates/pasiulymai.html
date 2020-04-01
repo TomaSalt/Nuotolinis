@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Keliones</title>
+    <meta charset="utf-8">
+    		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    		<link rel="stylesheet" href="jqueryui.css">	
+		<link rel="stylesheet" href="main.css">		
+		<style>
+			.anuliuotas, .sanuliuotas {
+				background-color: lightblue;
+			}
+			.ivykdytas, .sivykdytas {
+				background-color: lightgreen;
+			}
+			table {
+				border-collapse: colapse;
+			}
+			th {
+				background-color: lightgreen;			
+			}
+			th, td {
+				padding: 6px;
+				border: 1px solid grey;
+			}
+		</style>
+</head>
+<body>
+    <nav>
+	<a th:each="menu_item : ${lst_menu}" th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
+    </nav>
+	<div id="keliones">
+
+		<table>
+			<tr>
+				<td>
+					id
+				</td>
+				<td>
+					pav
+				</td>
+				<td>					
+					apras
+				</td>
+				<td>					
+					poilsinė
+				</td>
+				<td>					
+					pažintinė
+				</td>
+				<td>					
+					viskas<br>įsk
+				</td>
+				<td>					
+					flaisv. <br>pasir.
+				</td>
+			</tr>
+			<tr th:each="pasiulymas : ${lst_pasiulymai}">
+				<td th:text="${pasiulymas[0]}"></td>								
+				<td th:text="${pasiulymas[1]}"></td>				
+				<td th:text="${pasiulymas[2]}"></td>
+				<td th:text="${pasiulymas[3]}"></td>
+				<td th:text="${pasiulymas[4]}"></td>
+				<td th:text="${pasiulymas[5]}"></td>
+				<td th:text="${pasiulymas[6]}"></td>
+			</tr>
+		</table>	
+	
+	</div>
+</body>
+</html>
