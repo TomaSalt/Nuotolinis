@@ -1,5 +1,6 @@
 package mano.kelionesx;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,19 +9,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+/**
+ * 
+ * Pavyzdine mokomosios web aplikacijos - kelioniu informacines sistemos AJAX uzklausu kontroleris
+ * 
+ * @author Toma
+ *
+ */
 @Controller    // This means that this class is a Controller
 @RequestMapping(path="/ajax") // This means URL's start with /demo (after Application path)
 public class AjaxController {
-	
+	/**
+	 * Duomenu bazes lenteles <i>keliones</i> JPA repositorija
+	 * 
+	 * @see <a href="https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html">JPA repositorija</a>
+	 * {@link Keliones}
+	 */
 	@Autowired
 	KelionesRepository kelionesRepository;
 	
 	@Autowired
-	MiestaiRepository klientaiRepository;	
+	MiestaiRepository miestaiRepository;	
 	
 	@Autowired
-	Keliones_MiestaiRepository klientaiKelionesRepository;		
+	Keliones_MiestaiRepository keliones_MiestaiRepository;		
 	
 	@GetMapping(path="/saugoti-kelione") // Map ONLY GET Requests
 	public @ResponseBody String saugotiKelione (@RequestParam Integer id 
@@ -41,7 +53,7 @@ public class AjaxController {
 		
 			Optional <Keliones> found = kelionesRepository.findById( id );
 		
-			// variantas trynimuiui
+			// variantas trynimui
 			// uzsakymaiRepository.deleteById(id);
 		
 			if ( found.isPresent() ) {
@@ -87,20 +99,27 @@ public class AjaxController {
 		// This returns a JSON or XML with the users
 		return kelionesRepository.findAll();
 	}	
-	
+	/**
+	 * Pateikia visu kelioniu JSON sarasa
+	 * 
+	 * [@link Keliones]
+	 * @return Iterable<Keliones>
+	 */
 	@GetMapping(path="/lst-kelionesx")
 	public @ResponseBody Iterable<Keliones> getAllKelionesX() {
 		// This returns a JSON or XML with the users
 		return kelionesRepository.findAll();
-	}	
+	}
 
-	@GetMapping(path="/saugoti-klienta") // Map ONLY GET Requests
-	public @ResponseBody String saugotiKlienta (@RequestParam Integer id 
+	
+
+	@GetMapping(path="/saugoti-miesta") // Map ONLY GET Requests
+	public @ResponseBody String saugotiMiesta (@RequestParam Integer id 
 			, @RequestParam String pav
-			, @RequestParam Integer flagPoilsines
+			/*, @RequestParam Integer flagPoilsines
 			, @RequestParam Integer flagPazintines	
 			, @RequestParam Integer flagViskasIsk	
-			, @RequestParam Integer flagLaisvPasir
+			, @RequestParam Integer flagLaisvPasir*/
 			) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -110,9 +129,9 @@ public class AjaxController {
 		
 		if (id > 0) {
 		
-			Optional <Miestai> found = klientaiRepository.findById( id );
+			Optional <Miestai> found = miestaiRepository.findById( id );
 		
-			// variantas trynimuiui
+			// variantas trynimui
 			// uzsakymaiRepository.deleteById(id);
 		
 			if ( found.isPresent() ) {
@@ -123,45 +142,45 @@ public class AjaxController {
 		}
 		
 	    n.setPav( pav );
-	    n.setFlagPazintines(flagPazintines);
+	    /*n.setFlagPazintines(flagPazintines);
 	    n.setFlagPoilsines(flagPoilsines);
 		n.setFlagViskasIsk(flagViskasIsk);
-		n.setFlagLaisvPasir(flagLaisvPasir);
-	    klientaiRepository.save(n);	
+		n.setFlagLaisvPasir(flagLaisvPasir);*/
+	    miestaiRepository.save(n);	
 	    res = "Saved";
 	    
 		return res;
 	}
 	
-	@GetMapping(path="/salinti-klienta") // Map ONLY GET Requests
-	public @ResponseBody String salintiKlienta (@RequestParam Integer id 
+	@GetMapping(path="/salinti-miesta") // Map ONLY GET Requests
+	public @ResponseBody String salintiMiesta (@RequestParam Integer id 
 			) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 		
-		Optional <Miestai> found = klientaiRepository.findById( id );
+		Optional <Miestai> found = miestaiRepository.findById( id );
 		
 		String res = "Not done";
 		
 		if ( found.isPresent() ) {
 			
 			   Miestai n = found.get();
-			   klientaiRepository.deleteById(id);
+			   miestaiRepository.deleteById(id);
 			   res = "Deleted";
 		}		
 		return res;
 	}		
 
-	@GetMapping(path="/lst-klientai")
-	public @ResponseBody Iterable<Miestai> getAllKlientai() {
+	@GetMapping(path="/lst-miestai")
+	public @ResponseBody Iterable<Miestai> getAllMiestai() {
 		// This returns a JSON or XML with the users
-		return klientaiRepository.findAll();
+		return miestaiRepository.findAll();
 	}	
 	
-	@GetMapping(path="/klientas")
-	public @ResponseBody Optional<Miestai> getKlientas(@RequestParam Integer id) {
+	@GetMapping(path="/miestas")
+	public @ResponseBody Optional<Miestai> getMiestas(@RequestParam Integer id) {
 		// This returns a JSON or XML with the users
-		Optional <Miestai> found = klientaiRepository.findById( id );		
+		Optional <Miestai> found = miestaiRepository.findById( id );		
 		/*
 		if ( found.isPresent() ) {
 			
@@ -171,22 +190,23 @@ public class AjaxController {
 		return found;
 	}	
 	
-	@GetMapping(path="/kliento-kelione") // Map ONLY GET Requests
-	public @ResponseBody String saugotiProduktaPatiekalo (@RequestParam Integer id 
-			, @RequestParam(defaultValue="0") Integer id_kl
-			, @RequestParam(defaultValue="0") Integer id_keliones
+	@GetMapping(path="/keliones-miestai") // Map ONLY GET Requests
+	public @ResponseBody Iterable<Keliones_Miestai>getKeliones_Miestai (/*@RequestParam Integer id 
+			, @RequestParam(defaultValue="0") Integer id_miest
+			,*/ @RequestParam(defaultValue="0") Integer id_keliones
 			) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 		
 		String res = "Not done";
-		Keliones_Miestai n = new Keliones_Miestai();
+		//Keliones_Miestai n = new Keliones_Miestai();
+		List <Keliones_Miestai> miestaiPagalKelionesId = keliones_MiestaiRepository.findByKelionesId(id_keliones);
+		//miestaiPagalKelionesId
+		//System.out.println ( "id: " + id + " miesto. id: " + id_miest + " keliones. id " + id_keliones );
 		
-		System.out.println ( "id: " + id + " kliento. id: " + id_kl + " keliones. id " + id_keliones );
+		/*if (id > 0) {
 		
-		if (id > 0) {
-		
-			Optional <Keliones_Miestai> found = klientaiKelionesRepository.findById( id );
+			Optional <Keliones_Miestai> found = keliones_MiestaiRepository.findById( id );
 		
 			// variantas trynimuiui
 			// uzsakymaiRepository.deleteById(id);
@@ -199,35 +219,35 @@ public class AjaxController {
 			
 		} else {
 		
-			if ( ( id_kl > 0 ) && ( id_keliones > 0 ) ) {
+			if ( ( id_miest > 0 ) && ( id_keliones > 0 ) ) {
 				
-				n.setKlientai_id ( id_kl );
+				n.setMiestai_id ( id_miest );
 				n.setKeliones_id( id_keliones );
 			}
 		}
 		
 		System.out.println ( n.toString() );			   			   
-		klientaiKelionesRepository.save(n);	
+		keliones_MiestaiRepository.save(n);	*/
 		res = "Saved";
 	    
-		return res;
+		return miestaiPagalKelionesId;
 	}
 	
-	@GetMapping(path="/salinti-kliento-kelione") // Map ONLY GET Requests
-	public @ResponseBody String salintiKlientoKelione (@RequestParam Integer id_kl
+	@GetMapping(path="/salinti-keliones-miestai") // Map ONLY GET Requests
+	public @ResponseBody String salintiKelionesMiestai (@RequestParam Integer id_miest
 			, @RequestParam Integer id 
 			) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 		
-		Optional <Keliones_Miestai> found = klientaiKelionesRepository.findById( id );
+		Optional <Keliones_Miestai> found = keliones_MiestaiRepository.findById( id );
 		
 		String res = "Not done";
 		
 		if ( found.isPresent() ) {
 			
 			   Keliones_Miestai n = found.get();
-			   klientaiKelionesRepository.deleteById(id);
+			   keliones_MiestaiRepository.deleteById(id);
 			   res = "Deleted";
 		}		
 		return res;

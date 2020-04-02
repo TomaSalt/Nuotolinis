@@ -39,10 +39,10 @@ public class PageController {
         return "keliones";
     }	
     
-    /*@GetMapping("/kelionesx")
+    @GetMapping("/kelionesx")
     public String kelionesx() {
         return "kelionesx";
-    }   */ 
+    }   
     
     @GetMapping("/miestai")
     public String klientai(Model model) {
@@ -50,11 +50,11 @@ public class PageController {
         return "miestai";
     }    
 
-    /*@GetMapping("/miestas")
-    public String klientas(@RequestParam Integer id, Model model) {
+    @GetMapping("/miestas")
+    public String miestas(@RequestParam Integer id, Model model) {
         model.addAttribute("lst_menu", Menu.values() );
         return "miestas";
-    }  */
+    }  
         
 	/*@GetMapping(path="/pasiulymai")
 	public  String											

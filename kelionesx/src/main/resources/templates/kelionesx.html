@@ -31,7 +31,7 @@
 					while ( i < keliones.length ) {
 					
 						str_lst_keliones += '<tr>';
-						str_lst_keliones += '<td>' + keliones[ i ].pav + '</td>';
+						str_lst_keliones += '<td class="pav" data-id="' + keliones[ i ].id + '" data-apras="' + keliones[ i ].apras + '">' + keliones[ i ].pav + '</td>';
 						str_lst_keliones += '<td>' + keliones[ i ].kaina + '</td>';
 						str_lst_keliones += '<td>' + keliones[ i ].trukmeVal + ' &check; </td>';						
 						str_lst_keliones += '<tr>';
@@ -42,7 +42,37 @@
 					str_lst_keliones += '</table>';
 					
 					$( '#lst_keliones' ).html ( str_lst_keliones );
-					
+					$( ".pav" ).each ( function() {
+						$( this ).on("click", function() {
+							id = $(this).data("id");
+							aprasymas = $(this).data( "apras" );
+							alert(aprasymas);
+							alert("id = " + id);
+							$.ajax( '/ajax/keliones-miestai?id_keliones=' + id,  // request url
+								{
+									success: function (data, status, xhr ) {// success callback function
+										alert("Ima duomenis pagal keliones id");
+										miestai = data;
+										y = 0;
+										var kablelis = "";
+										aprasymas += ". Miestai, kuriuos pravažiuosite kelionės metu: "
+										while ( y < miestai.length ) {
+											
+											aprasymas += kablelis + miestai[y].miestai.pav;
+											kablelis = ", ";
+											y++;
+							
+										}
+										aprasymas += ".";
+										alert(aprasymas);
+										
+										$('#placiau').html(aprasymas);
+									}
+								});
+							
+							
+						});
+					});
 					// funkcijos vieta čia
 			    }
 			});
@@ -57,4 +87,7 @@
 		
 	</div>
 	<input type="button" id="siulyti" value="pasiulyti">
+	<div id="placiau">
+	Nesamone
+	</div>
 </body>

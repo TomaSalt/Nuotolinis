@@ -93,7 +93,7 @@
 		
 		this.sarasoAntraste();
 									console.log ( 'this.params.data' + JSON.stringify ( eval ( 'this.params.data' ) ) );	
-									console.log ( 'this.params.data.klientaiKeliones' + JSON.stringify ( eval ( 'this.params.data.klientaiKeliones' ) ) );	
+									console.log ( 'this.params.data.miestaiKeliones' + JSON.stringify ( eval ( 'this.params.data.miestaiKeliones' ) ) );	
 
 
 									console.log ( 'this.params.data' + this.params.field_data + JSON.stringify ( eval ( 'this.params.data' + this.params.field_data ) ) );	

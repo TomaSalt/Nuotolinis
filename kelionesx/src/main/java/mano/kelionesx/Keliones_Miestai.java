@@ -14,11 +14,10 @@ public class Keliones_Miestai {
     @GeneratedValue(strategy=GenerationType.IDENTITY)	
 
 	private Integer id;
-    
 	private Integer miestai_id;
 	private Integer keliones_id;
 	
-    @JsonIgnoreProperties("miestaiKeliones")
+    @JsonIgnoreProperties("keliones_Miestai")
     @ManyToOne
     @JoinColumn(insertable=false, updatable=false)
     private Miestai miestai;
