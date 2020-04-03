@@ -21,6 +21,8 @@ public class Miestai {
     
     private String pav;
     
+    private String kodas_salies;
+    
     private String apras;	
     
     /*private Integer flagPoilsines;	
@@ -49,6 +51,14 @@ public class Miestai {
 
 	public void setPav(String pav) {
 		this.pav = pav;
+	}
+
+	public String getKodas_salies() {
+		return kodas_salies;
+	}
+
+	public void setKodas_salies(String kodas_salies) {
+		this.kodas_salies = kodas_salies;
 	}
 
 	public String getApras() {

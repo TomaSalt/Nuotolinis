@@ -116,6 +116,8 @@ public class AjaxController {
 	@GetMapping(path="/saugoti-miesta") // Map ONLY GET Requests
 	public @ResponseBody String saugotiMiesta (@RequestParam Integer id 
 			, @RequestParam String pav
+			, @RequestParam String kodas_salies
+			, @RequestParam String apras
 			/*, @RequestParam Integer flagPoilsines
 			, @RequestParam Integer flagPazintines	
 			, @RequestParam Integer flagViskasIsk	
@@ -142,6 +144,8 @@ public class AjaxController {
 		}
 		
 	    n.setPav( pav );
+	    n.setKodas_salies(kodas_salies);
+	    n.setApras(apras);
 	    /*n.setFlagPazintines(flagPazintines);
 	    n.setFlagPoilsines(flagPoilsines);
 		n.setFlagViskasIsk(flagViskasIsk);
