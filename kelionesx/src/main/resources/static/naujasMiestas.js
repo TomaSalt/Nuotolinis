@@ -6,7 +6,7 @@ $(document).ready ( function() {
 	
 		pasiimtiMiestus();
 	
-		function keistiBusena( id, busena) {
+		function keistiBusena( id_miesto, busena) {
 			params_str = 'id=' + id_miesto; 
 			if (busena == 'trinti'){
 				$.ajax('/ajax/salinti-miesta?' + params_str)

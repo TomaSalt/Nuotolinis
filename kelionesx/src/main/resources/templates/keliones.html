@@ -33,55 +33,148 @@
 		crossorigin="anonymous">
 	    </script>
 	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
-	    <script src="crud.js"></script>
+	    <script src="naujaKelione.js"></script>
 	    <script>
 		$( document ).ready ( function() {
+			var dialog, form,
+			id_keliones = $( "#id" ),
+			pav_keliones = $( "#pav" ),
+			apras_keliones = $( "#apras" ),
+			kaina_keliones = $("#kaina"),
+			trukme_val_keliones = $("#trukmeVal"),
+			flag_Poilsines = $("#flagPoilsines"),
+			flag_Pazintines = $("#flagPazintines"),
+			flag_Viskas_Isk = $("#flagViskasIsk"),
+			flag_Laisv_Pasir = $("#flagLaisvPasir"),
+			allFields = $( [] ).add( id_keliones ).add( pav_keliones ).add( apras_keliones ).add( kaina_keliones ).add( trukme_val_keliones ).add( flag_Poilsines ).add( flag_Pazintines ).add( flag_Viskas_Isk ).add( flag_Laisv_Pasir );
 
-			params = {
+			kelionesCrud();
+			/*function addKelione() {
 			
-				fields: [ 'pav', 'apras', 'flagPoilsines', 'flagPazintines', 'flagViskasIsk', 'flagLaisvPasir' ]
-				, fields_names: [ 'Kelionė', 'Aprašymas', 'poilsinė', 'pažintinė', 'viskas<br>įsk.', 'laisv.<br>pasir.' ]
-				, url : 'http://localhost:8080/ajax/lst-keliones'
-				, field_data: ''
-				, id_html_saraso: 'keliones'
-				, id_html_dialog_formos: 'keliones-dialog'
-				, dialog_size_x: 400
-				, dialog_size_y: 490
-				, title_dialog_form: 'Kelione'
-				, url_save_rec: 'http://localhost:8080/ajax/saugoti-kelione'
-				, url_delete_rec:  'http://localhost:8080/ajax/salinti-kelione'
-				, fields_edit:  [ 'pav', 'apras', 'flagPoilsines', 'flagPazintines', 'flagViskasIsk', 'flagLaisvPasir' ]
-				, fields_ed_types: [ 'text', 'textarea', 'checkbox', 'checkbox', 'checkbox', 'checkbox' ]
-				, field_name: 'pav'
+				var valid = true;
+				allFields.removeClass( "ui-state-error" );
+				valid = valid && checkLength( pav, "Keliones pavadinimo", 1, 30 );
+				if ( valid ) {
+					alert ( 'submitinam ..'  + pav.val() );
+					$( '#keliones_forma' ).submit();
+					dialog.dialog( "close" );
+				}
+				return valid;
 			}
+			dialog = $( "#dialog-form" ).dialog({
+				autoOpen: false,
+				height: 400,
+				width: 350,
+				modal: true,
+				buttons: {
+					"Sukurti": addKelione,
+					Atsaukti: function() {
+						dialog.dialog( "close" );
+					}
+				},
+				close: function() {
+					form[ 0 ].reset();
+					allFields.removeClass( "ui-state-error" );
+				}
+			});*/
+			//form = dialog.find( "form" );
+			/*trintidialog = $( "#dialog-confirm" ).dialog({
+				autoOpen: false,
+				resizable: false,
+				height: "auto",
+				width: 400,
+				modal: true,
+				buttons: {
+					"Istrinti irasa": function() {
+						$( '#salinimo_forma' ).submit();
+						$( this ).dialog( "close" );
+					},
+					Atsaukti: function() {
+						$( this ).dialog( "close" );
+					}
+				}
+			});
 			
-			crud_kategoriju = new crud ( params );
+			$( "#create-kelione" ).button().on( "click", function() {
+		
+				$( '#pav_veiksmo' ).html ( 'Kuriamas naujas irasas' );
+				$( '#veiksmas' ).val ( 'papildyti' );
+					dialog.dialog( "open" );
+			});
+			$( ".keisti" ).each ( function() {
 			
-			crud_kategoriju.initEmpty();
-			crud_kategoriju.refreshData();
+				$( this ).on( "click", function() {
+				
+					id = $( this ).data( 'id' );
+					$( '#id_taisomo_iraso' ).val ( id);
+					$( '#pav_veiksmo' ).html (  'Koreguojamas irasas' );
+					$('#pav').val( $( this ).data ( 'pav' ));
+					$( '#veiksmas' ).val ( 'pakeisti' );
+					kilme = $( this ).data( 'kilme' );
+					if ( kilme == 1){
+					$('#kilme').prop('checked', true);}
+					dialog.dialog( "open" );	
+				});
+			});
+			$( ".salinti" ).each ( function() {
+			
+				$( this ).on( "click", function() {
+				
+					id = $( this ).data( 'id' );
+					$( '#id_salinamo_iraso' ).val ( id );
+					$( '#pav_salinamo_iraso' ).html ( $( this ).data ( 'pav' ) );				
+					trintidialog.dialog( "open" );	
+				});
+			});
+			*/
 			
 		});			
 	</script>
 </head>
 <body>
-    <nav>
-	<a th:each="menu_item : ${lst_menu}" th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
-    </nav>
-<div id="keliones-dialog" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: 259.053px;">
-<p class="validateTips">Visi laukeliai turi buti užpildyti.</p><p class="name_item" id="name_item">Nauja Kelione</p>
-<form action=""><fieldset><label for="pav">Kelionė</label>
-<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
-<label for="apras">Aprašymas</label>
-<textarea name="apras" id="apras" value="" rows="4" cols="40"></textarea><br><br>
-<input  class="ch_lab" type="checkbox" name="flagPoilsines" id="flagPoilsines" value="1"> - <label class="ch_lab" for="flag_poilsines">poilsinė</label><br>
-<input  class="ch_lab" type="checkbox" name="flagPazintines" id="flagPazintines" value="1"> - <label class="ch_lab"  for="flag_pazintines">pažintinė</label><br>
-<input  class="ch_lab" type="checkbox" name="flagViskasIsk" id="flagViskasIsk" value="1"> - <label class="ch_lab"  for="flag_viskas_isk">viskas įskaičiuota</label><br>
-<input  class="ch_lab" type="checkbox" name="flagLaisvPasir" id="flagLaisvPasir" value="1"> - <label class="ch_lab"   for="flag_laisv_pasir">laisvas pasirinkimas</label><br>
-<!-- Allow form submission with keyboard without duplicating the dialog button -->
-<input type="submit" tabindex="-1" style="position:absolute; top:-1000px"></fieldset><input type="hidden" name="id" id="id_rec" value="0">
-</form>
-</div>
-	<div id="keliones">
+	<nav>
+		<a th:each="menu_item : ${lst_menu}" th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
+	</nav>
+	<div id="dialog-form" title="Nauja kelione">
+		<p class="validateTips">Visi laukai privalomi</p>
+		<p id="pav_veiksmo"></p>
+		<form id="keliones_forma" method="POST">
+			<fieldset>
+				<input type="hidden" name="id" id="id" value="0">
+				<label for="pav">Keliones pavadinimas</label>
+				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all" required>
+				<label for="apras">Keliones aprasymas</label>
+				<input type="text" name="apras" id="apras" value="" class="text ui-widget-content ui-corner-all" required>
+				<label for="kaina">Keliones kaina</label>
+				<input type="text" name="kaina" id="kaina" value="" class="text ui-widget-content ui-corner-all" required>
+				<label for="trukmeVal">Keliones trukme</label>
+				<input type="text" name="trukmeVal" id="trukmeVal" value="" class="text ui-widget-content ui-corner-all" required>
+				<input type="checkbox" name="flagPoilsines" id="flagPoilsines" value="1">
+				<label for="flagPoilsines"> Poilsine </label><br>
+				<input type="checkbox" name="flagPazintines" id="flagPazintines" value="1">
+				<label for="flagPoilsines"> Pazintine </label><br>
+				<input type="checkbox" name="flagViskasIsk" id="flagViskasIsk" value="1">
+				<label for="flagPoilsines"> Viskas iskaiciuota </label><br>
+				<input type="checkbox" name="flagLaisvPasir" id="flagLaisvPasir" value="1">
+				<label for="flagPoilsines"> Laisvai pasirenkama </label><br>
+				<!-- Allow form submission with keyboard without duplicating the dialog button -->
+				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+			</fieldset>
+		</form>
+	</div>
+	<div id="main">
+		<h3>Esamos keliones</h3>
+		<button id="create-kelione">Irašyti kelionę</button>
+		<div id="keliones">
+		</div>
+	</div>
+	<div id="dialog-confirm" title="Ištrinti įrašą?">
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+		<p>Šis įrašas <span id="pav_keliones"></span> bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
+		<form id="salinimo_forma" method="POST">
+			<input type="hidden" name="id" id="id_keliones" value="0">
+			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		</form>
 	</div>
 </body>
 </html>

@@ -38,6 +38,8 @@ public class AjaxController {
 	public @ResponseBody String saugotiKelione (@RequestParam Integer id 
 			, @RequestParam String pav
 			, @RequestParam String apras
+			, @RequestParam Double kaina
+			, @RequestParam Integer trukmeVal
 			, @RequestParam Integer flagPoilsines
 			, @RequestParam Integer flagPazintines	
 			, @RequestParam Integer flagViskasIsk	
@@ -65,6 +67,8 @@ public class AjaxController {
 		
 	    n.setPav( pav );
 	    n.setApras(apras);
+	    n.setKaina(kaina);
+	    n.setTrukmeVal(trukmeVal);
 	    n.setFlagPazintines(flagPazintines);
 	    n.setFlagPoilsines(flagPoilsines);
 		n.setFlagViskasIsk(flagViskasIsk);
