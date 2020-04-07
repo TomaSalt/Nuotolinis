@@ -53,13 +53,20 @@
 				$( '#kaina' ).val(kaina_keliones);
 				$( '#trukmeVal' ).val(trukme_val_keliones);
 				if ( flag_Poilsines == 1){
-					$('#flagPoilsines').prop('checked', true);}
+					$('#flagPoilsines').prop('checked', true);
+				} else {
+					$('#flagPoilsines').prop('checked', false);}
 				if ( flag_Pazintines == 1){
-					$('#flagPazintines').prop('checked', true);}
+					$('#flagPazintines').prop('checked', true);
+				} else {
+					$('#flagPazintines').prop('checked', false);}
 				if ( flag_Viskas_Isk == 1){
-					$('#flagViskasIsk').prop('checked', true);}
+					$('#flagViskasIsk').prop('checked', true);
+				} else {
+					$('#flagViskasIsk').prop('checked', false);}
 				if ( flag_Laisv_Pasir == 1){
-					$('#flagLaisvPasir').prop('checked', true);}
+					$('#flagLaisvPasir').prop('checked', true);
+				} else {$('#flagLaisvPasir').prop('checked', false);}
 				
 			}
 			pasiimtiKeliones();
@@ -86,19 +93,28 @@
 					function( data ) {
 															// alert ( 'jquery ok ' + data );
 						res_str = '<table>'
-								+ '<tr><th rowspan="1">id</th><th rowspan="1">pavadinimas</th><th rowspan="1">aprasymas</th><th rowspan="1">kaina</th><th rowspan="1">trukme val</th><th rowspan="1">Poilsines</th><th rowspan="1">Pazintines</th><th rowspan="1">Viskas iskaiciuota</th><th rowspan="1">Laisvai pasirenkama</th><th>veiksmai</th></tr>';
-						
+								+ '<tr><th rowspan="1">id</th><th rowspan="1">pavadinimas</th><th rowspan="1">aprasymas</th><th rowspan="1">kaina</th><th rowspan="1">trukme val</th><th rowspan="1">Poilsines</th><th rowspan="1">Pazintines</th><th rowspan="1">Viskas iskaiciuota</th><th rowspan="1">Laisvai pasirenkama</th><th>veiksmai</th><th>gaidys</th></tr>';
+						alert( data );
 						for ( i = 0; i < data.length; i++) {
+							
 							res_str += '<tr data-id="' + data [ i ].id  + '" data-pav="' + data [ i ].pav + '" data-apras="' + data [ i ].apras + '" data-kaina="' + data [ i ].kaina + '" data-trukmeVal="' + data [ i ].trukmeVal + '" data-flagPoilsines="' + data [ i ].flagPoilsines +'" data-flagPazintines="' + data [ i ].flagPazintines + '" data-flagViskasIsk="' + data [ i ].flagViskasIsk + '" data-flagLaisvPasir="' + data [ i ].flagLaisvPasir +  '">'
 								+ '<td>' + data [ i ].id + '</td>' 
 								+ '<td>' + data [ i ].pav + '</td>'
 								+ '<td>' + data [ i ].apras + '</td>'
 								+ '<td>' + data [ i ].kaina + '</td>'
 								+ '<td>' + data [ i ].trukmeVal + '</td>'
-								+ '<td>' + data [ i ].flagPoilsines + '</td>'
-								+ '<td>' + data [ i ].flagPazintines + '</td>'
-								+ '<td>' + data [ i ].flagViskasIsk + '</td>'
-								+ '<td>' + data [ i ].flagLaisvPasir + '</td>'
+								+ '<td>'
+								+ '<input type="checkbox" name="flagPoilsines" id="flagPoilsines" value="' + data [ i ].flagPoilsines + '">'
+								+ '</td>'
+								+ '<td>' 
+								+ '<input type="checkbox" name="flagPazintines" id="flagPazintines" value="' + data [ i ].flagPazintines + '">'
+								+ '</td>'
+								+ '<td>'
+								+ '<input type="checkbox" name="flagViskasIsk" id="flagViskasIsk"" value="' + data [ i ].flagViskasIsk + '">'
+								+ '</td>'
+								+ '<td>' 
+								+ '<input type="checkbox" name="flagLaisvPasir" id="flagLaisvPasir"" value="' + data [ i ].flagLaisvPasir + '">'
+								+ '</td>'
 								+ '<td><input type="button" class="trinti" value="trinti">'
 								+ '<input type="button" class="redaguoti" value="redaguoti"></td>'
 								;
