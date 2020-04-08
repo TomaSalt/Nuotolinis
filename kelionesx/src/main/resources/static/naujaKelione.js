@@ -1,14 +1,15 @@
 	function kelionesCrud(){
-		var dialog, form;
+		var dialog, form,
+			id, pav, apras, flag_poilsines, flag_pazintines, flag_viskas_isk, kaina, trukme_val;
 		id_keliones = $( "#id" );
 		pav_keliones = $( "#pav" );
 		apras_keliones = $( "#apras" );
-		flag_poilsines = $("#flagPoilsines");
-		flag_pazintines = $("#flagPazintines");
-		flag_viskas_isk = $("#flagViskasIsk");
+		flag_poilsines_keliones = $("#flagPoilsines");
+		flag_pazintines_keliones = $("#flagPazintines");
+		flag_viskas_isk_keliones = $("#flagViskasIsk");
 		kaina_keliones = $("#kaina");
 		trukme_val_keliones = $("#trukmeVal");
-		allFields = $( [] ).add( id_keliones ).add( pav_keliones ).add( apras_keliones ).add( flag_poilsines ).add( flag_pazintines ).add( flag_viskas_isk ).add( kaina_keliones ).add( trukme_val_keliones );
+		allFields = $( [] ).add( id_keliones ).add( pav_keliones ).add( apras_keliones ).add( flag_poilsines_keliones ).add( flag_pazintines_keliones ).add( flag_viskas_isk_keliones ).add( kaina_keliones ).add( trukme_val_keliones );
 		pasiimtiKeliones();
 		dialog = $( "#dialog-form" ).dialog({
 			autoOpen: false,
@@ -56,33 +57,43 @@
 			addKelione();
 		});
 		
-		function keistiBusena( id_keliones, busena) {
-			params_str = 'id=' + id_keliones;
+		function keistiBusena( id, busena) {
+			params_str = 'id=' + id;
 			if (busena == 'trinti'){
-				$('#pav_keliones').val(pav_keliones);
+				$('#pav').val(pav);
 				trintidialog.dialog( "open" );				
 			}
 			if (busena == 'redaguoti'){
 				
 				$( '#pav_veiksmo' ).html ( 'Redaguojamas irasas' );
-				$('#id').val(id_keliones);
-				$( '#pav' ).val(pav_keliones);
-				$( '#apras' ).val(apras_keliones);
+				$('#id').val(id);
+				$( '#pav' ).val(pav);
+				$( '#apras' ).val(apras);
+				$('#flagPoilsines').val(flag_poilsines);
+				$('#flagPazintines').val(flag_pazintines);
+				$('#flagViskasIsk').val(flag_viskas_isk);
+				$( '#kaina' ).val(kaina);
+				$( '#trukmeVal' ).val(trukme_val);
 				if ( flag_poilsines == 1){
-					$('#flagPoilsines').prop('checked', true);
+					alert("flag poilsines pazymeti");
+					document.getElementById("flagPoilsines").checked = true;
 				} else {
-					$('#flagPoilsines').prop('checked', false);}
+					document.getElementById("flagPoilsines").checked = false;
+				}
 				if ( flag_pazintines == 1){
-					$('#flagPazintines').prop('checked', true);
+					alert("flag pazintines pazymeti");
+					document.getElementById("flagPazintines").checked = true;
 				} else {
-					$('#flagPazintines').prop('checked', false);}
+					document.getElementById("flagPazintines").checked = false;
+				}
 				if ( flag_viskas_isk == 1){
-					$('#flagViskasIsk').prop('checked', true);
+					alert("flag viskas iskaiciuota pazymeti");
+					document.getElementById("flagViskasIsk").checked = true;
 				} else {
-					$('#flagViskasIsk').prop('checked', false);}
-				$( '#kaina' ).val(kaina_keliones);
-				$( '#trukmeVal' ).val(trukme_val_keliones);
+					document.getElementById("flagViskasIsk").checked = false;
+				}
 				dialog.dialog( "open" );
+				
 			}
 		}
 
@@ -114,33 +125,48 @@
 						+ '</tr>';
 				for ( i = 0; i < data.length; i++) {
 					
+					if (data [ i ].flagPoilsines == 1){
+						checked1 = "&check;";
+					} else {
+						checked1 = "&cross;";
+					}
+					if (data [ i ].flagPazintines == 1){
+						checked2 = "&check;";
+					} else {
+						checked2 = "&cross;";
+					}
+					if (data [ i ].flagViskasIsk == 1){
+						checked3 = "&check;";
+					} else {
+						checked3 = "&cross;";
+					}
 					res_str += '<tr data-id="' + data [ i ].id  
 						+ '" data-pav="' + data [ i ].pav 
 						+ '" data-apras="' + data [ i ].apras 
+						+ '" data-flagpoilsines="' + data [ i ].flagPoilsines 
+						+ '" data-flagpazintines="' + data [ i ].flagPazintines 
+						+ '" data-flagviskasisk="' + data [ i ].flagViskasIsk
 						+ '" data-kaina="' + data [ i ].kaina 
-						+ '" data-trukmeVal="' + data [ i ].trukmeVal 
-						+ '" data-flagPoilsines="' + data [ i ].flagPoilsines 
-						+ '" data-flagPazintines="' + data [ i ].flagPazintines 
-						+ '" data-flagViskasIsk="' + data [ i ].flagViskasIsk 
+						+ '" data-trukmeval="' + data [ i ].trukmeVal 
 						+ '">'
 						+ '<td>' + data [ i ].id + '</td>' 
 						+ '<td>' + data [ i ].pav + '</td>'
 						+ '<td>' + data [ i ].apras + '</td>'
 						+ '<td>'
-						+ '<input type="checkbox" name="flagPoilsines" id="flagPoilsines" value="' + data [ i ].flagPoilsines + '">'
+						+ '<div name="flagPoilsines" id="flagPoilsines" value="' + data [ i ].flagPoilsines + '">' + checked1 + '</div>'
 						+ '</td>'
 						+ '<td>' 
-						+ '<input type="checkbox" name="flagPazintines" id="flagPazintines" value="' + data [ i ].flagPazintines + '">'
+						+ '<div name="flagPazintines" id="flagPazintines" value="' + data [ i ].flagPazintines + '">' + checked2 + '</div>'
 						+ '</td>'
 						+ '<td>'
-						+ '<input type="checkbox" name="flagViskasIsk" id="flagViskasIsk"" value="' + data [ i ].flagViskasIsk + '">'
+						+ '<div name="flagViskasIsk" id="flagViskasIsk"" value="' + data [ i ].flagViskasIsk + '">' + checked3 + '</div>'
 						+ '</td>'
 						+ '<td>' + data [ i ].kaina + '</td>'
 						+ '<td>' + data [ i ].trukmeVal + '</td>'
 						+ '<td><input type="button" class="trinti" value="trinti">'
 						+ '<input type="button" class="redaguoti" value="redaguoti"></td>'
 						;
-
+					
 					res_str += '</tr>';
 				}
 				res_str += '</table>';
@@ -154,9 +180,9 @@
 						
 					$( this ).each ( function() {
 						
-						id_keliones = $( this ).parent( ).parent().data ( 'id' );
+						id = $( this ).parent( ).parent().data ( 'id' );
 
-						keistiBusena ( id_keliones, 'trinti' );
+						keistiBusena ( id, 'trinti' );
 					});
 				});
 				
@@ -164,16 +190,17 @@
 				
 					$( this ).each ( function() {
 						
-						id_keliones = $( this ).parent( ).parent().data ( 'id' );
-						pav_keliones = $( this ).parent().parent().data ('pav');
-						apras_keliones = $( this ).parent().parent().data ('apras');
-						flag_Poilsines = $( this ).parent().parent().data ('flagPoilsines');
-						flag_Pazintines = $( this ).parent().parent().data ('flagPazintines');
-						flag_Viskas_Isk = $( this ).parent().parent().data ('flagViskasIsk');
-						kaina_keliones = $( this ).parent().parent().data ('kaina');
-						trukme_val_keliones = $( this ).parent().parent().data ('trukmeVal');
-						keistiBusena ( id_keliones, 'redaguoti' );
-
+						id = $( this ).parent( ).parent().data ( 'id' );
+						pav = $( this ).parent().parent().data ('pav');
+						apras = $( this ).parent().parent().data ('apras');
+						flag_poilsines = $( this ).parent().parent().data ('flagpoilsines');
+						flag_pazintines = $( this ).parent().parent().data ('flagpazintines');
+						flag_viskas_isk = $( this ).parent().parent().data ('flagviskasisk');
+						kaina = $( this ).parent().parent().data ('kaina');
+						trukme_val = $( this ).parent().parent().data ('trukmeval');
+						alert("flag " + " " + flag_poilsines + " " + flag_pazintines + " " + flag_viskas_isk);
+						keistiBusena ( id, 'redaguoti' );
+						
 					});
 				});	
 				
@@ -184,6 +211,28 @@
 		function addKelione() {
 			
 			alert ( 'Saugoma ' );
+			var flagPoilsinesCheckbox = document.getElementById("flagPoilsines").checked;
+			alert(flagPoilsinesCheckbox);
+			var flagPazintinesCheckbox = document.getElementById("flagPazintines").checked;
+			alert(flagPazintinesCheckbox);
+			var flagViskasIskCheckbox = document.getElementById("flagViskasIsk").checked;
+			alert(flagViskasIskCheckbox);
+			
+			if (flagPoilsinesCheckbox == true){
+				$( '#flagPoilsines' ).val('1');
+			} else {
+				$( '#flagPoilsines' ).val('0');
+			}
+			if (flagPazintinesCheckbox == true){
+				$( '#flagPazintines' ).val('1');
+			} else {
+				$( '#flagPazintines' ).val('0');
+			}
+			if (flagViskasIskCheckbox == true){
+				$( '#flagViskasIsk' ).val('1');
+			} else {
+				$( '#flagViskasIsk' ).val('0');
+			}
 
 			nauja_kelione= {
 				id: $('#id').val()
@@ -195,7 +244,7 @@
 				, kaina:  $( '#kaina' ).val() 
 				, trukmeVal:  $( '#trukmeVal' ).val() 
 			}
-			
+
 			// alert ( 'miestas ' + miestas.pav + ' ' );
 			
 			params_str = 
