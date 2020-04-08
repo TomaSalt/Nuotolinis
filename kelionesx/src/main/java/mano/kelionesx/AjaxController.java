@@ -38,12 +38,12 @@ public class AjaxController {
 	public @ResponseBody String saugotiKelione (@RequestParam Integer id 
 			, @RequestParam String pav
 			, @RequestParam String apras
-			, @RequestParam Double kaina
-			, @RequestParam Integer trukmeVal
 			, @RequestParam Integer flagPoilsines
 			, @RequestParam Integer flagPazintines	
 			, @RequestParam Integer flagViskasIsk	
-			, @RequestParam Integer flagLaisvPasir
+			, @RequestParam Double kaina
+			, @RequestParam Integer trukmeVal
+
 			) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -67,12 +67,11 @@ public class AjaxController {
 		
 	    n.setPav( pav );
 	    n.setApras(apras);
-	    n.setKaina(kaina);
-	    n.setTrukmeVal(trukmeVal);
 	    n.setFlagPazintines(flagPazintines);
 	    n.setFlagPoilsines(flagPoilsines);
 		n.setFlagViskasIsk(flagViskasIsk);
-		n.setFlagLaisvPasir(flagLaisvPasir);
+	    n.setKaina(kaina);
+	    n.setTrukmeVal(trukmeVal);
 	    kelionesRepository.save(n);	
 	    res = "Saved";
 	    
@@ -125,7 +124,7 @@ public class AjaxController {
 			/*, @RequestParam Integer flagPoilsines
 			, @RequestParam Integer flagPazintines	
 			, @RequestParam Integer flagViskasIsk	
-			, @RequestParam Integer flagLaisvPasir*/
+			*/
 			) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -153,7 +152,7 @@ public class AjaxController {
 	    /*n.setFlagPazintines(flagPazintines);
 	    n.setFlagPoilsines(flagPoilsines);
 		n.setFlagViskasIsk(flagViskasIsk);
-		n.setFlagLaisvPasir(flagLaisvPasir);*/
+		*/
 	    miestaiRepository.save(n);	
 	    res = "Saved";
 	    

@@ -32,14 +32,6 @@ public class Keliones {
 	 */  
     private String apras;
 	/**
-	 * Keliones kaina
-	 */ 
-    private Double kaina;
-	/**
-	 * Keliones trukme valandomis
-	 */
-    private Integer trukmeVal;
-	/**
 	 * Pozymis rodantis ar kelione yra poilsine
 	 */ 
     private Integer flagPoilsines;	
@@ -48,13 +40,17 @@ public class Keliones {
 	 */
     private Integer flagPazintines;	
 	/**
-	 * Pozymis rodantis ar i keliones kaina yra viskas iskaiciuota
-	 */  
+	 * Pozymis rodantis ar kelione yra su viskuom iskaiciuota
+	 */
     private Integer flagViskasIsk;	
 	/**
-	 * Pozymis kazka rodantis neatsimenu ka
-	 */ 
-    private Integer flagLaisvPasir;
+	 * Keliones kaina
+	 */  
+    private Double kaina;
+	/**
+	 * Keliones trukme valandomis
+	 */
+    private Integer trukmeVal;
 	/**
 	 * Id getter'is
 	 * 
@@ -103,38 +99,7 @@ public class Keliones {
 	public void setApras(String apras) {
 		this.apras = apras;
 	}
-	/**
-	 * Kainos (laukelis <i>kaina</i>) getter'is
-	 * 
-	 * @return kaina (laukelis <i>kaina</i>)
-	 */
-	public Double getKaina() {
-		return kaina;
-	}
-	/**
-	 * Kainos (laukelis <i>kaina</i>) setter'is
-	 * 
-	 * @param kaina (laukelis <i>kaina</i>)
-	 */
-	public void setKaina(Double kaina) {
-		this.kaina = kaina;
-	}
-	/**
-	 * Trukmes, valandomis (laukelis <i>trukme_val</i>) getter'is
-	 * 
-	 * @return trukmeVal (laukelis <i>trukme_val</i>)
-	 */
-	public Integer getTrukmeVal() {
-		return trukmeVal;
-	}
-	/**
-	 * Trukmes, valandomis (laukelis <i>trukme_val</i>) setter'is
-	 * 
-	 * @param trukmeVal (laukelis <i>trukme_val</i>)
-	 */
-	public void setTrukmeVal(Integer trukmeVal) {
-		this.trukmeVal = trukmeVal;
-	}
+	
 	 /* Pozymio, kad kelione poilsine (laukelis <i>flag_poilsines</i>) getter'is
 	 * 
 	 * @return flagPoilsines (laukelis <i>flag_poilsines</i>)
@@ -182,12 +147,37 @@ public class Keliones {
 	public void setFlagViskasIsk(Integer flagViskasIsk) {
 		this.flagViskasIsk = flagViskasIsk;
 	}
-
-	public Integer getFlagLaisvPasir() {
-		return flagLaisvPasir;
+	/**
+	 * Kainos (laukelis <i>kaina</i>) getter'is
+	 * 
+	 * @return kaina (laukelis <i>kaina</i>)
+	 */
+	public Double getKaina() {
+		return kaina;
+	}
+	/**
+	 * Kainos (laukelis <i>kaina</i>) setter'is
+	 * 
+	 * @param kaina (laukelis <i>kaina</i>)
+	 */
+	public void setKaina(Double kaina) {
+		this.kaina = kaina;
+	}
+	/**
+	 * Trukmes, valandomis (laukelis <i>trukme_val</i>) getter'is
+	 * 
+	 * @return trukmeVal (laukelis <i>trukme_val</i>)
+	 */
+	public Integer getTrukmeVal() {
+		return trukmeVal;
+	}
+	/**
+	 * Trukmes, valandomis (laukelis <i>trukme_val</i>) setter'is
+	 * 
+	 * @param trukmeVal (laukelis <i>trukme_val</i>)
+	 */
+	public void setTrukmeVal(Integer trukmeVal) {
+		this.trukmeVal = trukmeVal;
 	}
 
-	public void setFlagLaisvPasir(Integer flagLaisvPasir) {
-		this.flagLaisvPasir = flagLaisvPasir;
-	}
 }

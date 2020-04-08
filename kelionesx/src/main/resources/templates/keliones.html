@@ -36,97 +36,9 @@
 	    <script src="naujaKelione.js"></script>
 	    <script>
 		$( document ).ready ( function() {
-			var dialog, form,
-			inid_keliones = $( "#id" ),
-			pav_keliones = $( "#pav" ),
-			apras_keliones = $( "#apras" ),
-			kaina_keliones = $("#kaina"),
-			trukme_val_keliones = $("#trukmeVal"),
-			flag_Poilsines = $("#flagPoilsines"),
-			flag_Pazintines = $("#flagPazintines"),
-			flag_Viskas_Isk = $("#flagViskasIsk"),
-			flag_Laisv_Pasir = $("#flagLaisvPasir"),
-			allFields = $( [] ).add( id_keliones ).add( pav_keliones ).add( apras_keliones ).add( kaina_keliones ).add( trukme_val_keliones ).add( flag_Poilsines ).add( flag_Pazintines ).add( flag_Viskas_Isk ).add( flag_Laisv_Pasir );
 
 			kelionesCrud();
-			/*function addKelione() {
-			
-				var valid = true;
-				allFields.removeClass( "ui-state-error" );
-				valid = valid && checkLength( pav, "Keliones pavadinimo", 1, 30 );
-				if ( valid ) {
-					alert ( 'submitinam ..'  + pav.val() );
-					$( '#keliones_forma' ).submit();
-					dialog.dialog( "close" );
-				}
-				return valid;
-			}
-			dialog = $( "#dialog-form" ).dialog({
-				autoOpen: false,
-				height: 400,
-				width: 350,
-				modal: true,
-				buttons: {
-					"Sukurti": addKelione,
-					Atsaukti: function() {
-						dialog.dialog( "close" );
-					}
-				},
-				close: function() {
-					form[ 0 ].reset();
-					allFields.removeClass( "ui-state-error" );
-				}
-			});*/
-			//form = dialog.find( "form" );
-			/*trintidialog = $( "#dialog-confirm" ).dialog({
-				autoOpen: false,
-				resizable: false,
-				height: "auto",
-				width: 400,
-				modal: true,
-				buttons: {
-					"Istrinti irasa": function() {
-						$( '#salinimo_forma' ).submit();
-						$( this ).dialog( "close" );
-					},
-					Atsaukti: function() {
-						$( this ).dialog( "close" );
-					}
-				}
-			});
-			
-			$( "#create-kelione" ).button().on( "click", function() {
-		
-				$( '#pav_veiksmo' ).html ( 'Kuriamas naujas irasas' );
-				$( '#veiksmas' ).val ( 'papildyti' );
-					dialog.dialog( "open" );
-			});
-			$( ".keisti" ).each ( function() {
-			
-				$( this ).on( "click", function() {
-				
-					id = $( this ).data( 'id' );
-					$( '#id_taisomo_iraso' ).val ( id);
-					$( '#pav_veiksmo' ).html (  'Koreguojamas irasas' );
-					$('#pav').val( $( this ).data ( 'pav' ));
-					$( '#veiksmas' ).val ( 'pakeisti' );
-					kilme = $( this ).data( 'kilme' );
-					if ( kilme == 1){
-					$('#kilme').prop('checked', true);}
-					dialog.dialog( "open" );	
-				});
-			});
-			$( ".salinti" ).each ( function() {
-			
-				$( this ).on( "click", function() {
-				
-					id = $( this ).data( 'id' );
-					$( '#id_salinamo_iraso' ).val ( id );
-					$( '#pav_salinamo_iraso' ).html ( $( this ).data ( 'pav' ) );				
-					trintidialog.dialog( "open" );	
-				});
-			});
-			*/
+
 			
 		});			
 	</script>
@@ -145,18 +57,17 @@
 				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all" required>
 				<label for="apras">Keliones aprasymas</label>
 				<input type="text" name="apras" id="apras" value="" class="text ui-widget-content ui-corner-all" required>
-				<label for="kaina">Keliones kaina</label>
-				<input type="number" name="kaina" id="kaina" value="" class="text ui-widget-content ui-corner-all" required>
-				<label for="trukmeVal">Keliones trukme</label>
-				<input type="number" name="trukmeVal" id="trukmeVal" value="" class="text ui-widget-content ui-corner-all" required>
 				<input type="checkbox" name="flagPoilsines" id="flagPoilsines">
 				<label for="flagPoilsines"> Poilsine </label><br>
 				<input type="checkbox" name="flagPazintines" id="flagPazintines">
 				<label for="flagPazintines"> Pazintine </label><br>
 				<input type="checkbox" name="flagViskasIsk" id="flagViskasIsk">
-				<label for="flagViskasIsk"> Viskas iskaiciuota </label><br>
-				<input type="checkbox" name="flagLaisvPasir" id="flagLaisvPasir">
-				<label for="flagLaisvPasir"> Laisvai pasirenkama </label><br>
+				<label for="flagViskasIsk"> Viskas iskaiciuota </label>
+				<label for="kaina">Keliones kaina</label>
+				<input type="number" name="kaina" id="kaina" value="" class="text ui-widget-content ui-corner-all" required>
+				<label for="trukmeVal">Keliones trukme</label>
+				<input type="number" name="trukmeVal" id="trukmeVal" value="" class="text ui-widget-content ui-corner-all" required>
+				<br>
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 			</fieldset>
