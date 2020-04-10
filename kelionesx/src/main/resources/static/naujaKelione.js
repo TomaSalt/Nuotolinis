@@ -60,7 +60,7 @@
 		function keistiBusena( id, busena) {
 			params_str = 'id=' + id;
 			if (busena == 'trinti'){
-				$('#pav').val(pav);
+				$('#pav_keliones').val(pav);
 				trintidialog.dialog( "open" );				
 			}
 			if (busena == 'redaguoti'){
@@ -69,28 +69,28 @@
 				$('#id').val(id);
 				$( '#pav' ).val(pav);
 				$( '#apras' ).val(apras);
-				$('#flagPoilsines').val(flag_poilsines);
-				$('#flagPazintines').val(flag_pazintines);
-				$('#flagViskasIsk').val(flag_viskas_isk);
+				//$('#flagPoilsines').val(flag_poilsines);
+				//$('#flagPazintines').val(flag_pazintines);
+				//$('#flagViskasIsk').val(flag_viskas_isk);
 				$( '#kaina' ).val(kaina);
 				$( '#trukmeVal' ).val(trukme_val);
 				if ( flag_poilsines == 1){
 					alert("flag poilsines pazymeti");
-					document.getElementById("flagPoilsines").checked = true;
+					$("#flagPoilsines").prop('checked', true);
 				} else {
-					document.getElementById("flagPoilsines").checked = false;
+					$("#flagPoilsines").prop('checked', false);
 				}
 				if ( flag_pazintines == 1){
 					alert("flag pazintines pazymeti");
-					document.getElementById("flagPazintines").checked = true;
+					$("#flagPazintines").prop('checked', true);
 				} else {
-					document.getElementById("flagPazintines").checked = false;
+					$("#flagPazintines").prop('checked', false);
 				}
 				if ( flag_viskas_isk == 1){
 					alert("flag viskas iskaiciuota pazymeti");
-					document.getElementById("flagViskasIsk").checked = true;
+					$("#flagViskasIsk").prop('checked', true);
 				} else {
-					document.getElementById("flagViskasIsk").checked = false;
+					$("#flagViskasIsk").prop('checked', false);
 				}
 				dialog.dialog( "open" );
 				
@@ -153,13 +153,13 @@
 						+ '<td>' + data [ i ].pav + '</td>'
 						+ '<td>' + data [ i ].apras + '</td>'
 						+ '<td>'
-						+ '<div name="flagPoilsines" id="flagPoilsines" value="' + data [ i ].flagPoilsines + '">' + checked1 + '</div>'
+						+ '<div>' + checked1 + '</div>'
 						+ '</td>'
 						+ '<td>' 
-						+ '<div name="flagPazintines" id="flagPazintines" value="' + data [ i ].flagPazintines + '">' + checked2 + '</div>'
+						+ '<div>' + checked2 + '</div>'
 						+ '</td>'
 						+ '<td>'
-						+ '<div name="flagViskasIsk" id="flagViskasIsk"" value="' + data [ i ].flagViskasIsk + '">' + checked3 + '</div>'
+						+ '<div>' + checked3 + '</div>'
 						+ '</td>'
 						+ '<td>' + data [ i ].kaina + '</td>'
 						+ '<td>' + data [ i ].trukmeVal + '</td>'
@@ -211,36 +211,20 @@
 		function addKelione() {
 			
 			alert ( 'Saugoma ' );
-			var flagPoilsinesCheckbox = document.getElementById("flagPoilsines").checked;
+			var flagPoilsinesCheckbox = $('#flagPoilsines').is(':checked');
 			alert(flagPoilsinesCheckbox);
-			var flagPazintinesCheckbox = document.getElementById("flagPazintines").checked;
+			var flagPazintinesCheckbox = $('#flagPazintines').is(':checked');
 			alert(flagPazintinesCheckbox);
-			var flagViskasIskCheckbox = document.getElementById("flagViskasIsk").checked;
+			var flagViskasIskCheckbox = $('#flagViskasIsk').is(':checked');
 			alert(flagViskasIskCheckbox);
-			
-			if (flagPoilsinesCheckbox == true){
-				$( '#flagPoilsines' ).val('1');
-			} else {
-				$( '#flagPoilsines' ).val('0');
-			}
-			if (flagPazintinesCheckbox == true){
-				$( '#flagPazintines' ).val('1');
-			} else {
-				$( '#flagPazintines' ).val('0');
-			}
-			if (flagViskasIskCheckbox == true){
-				$( '#flagViskasIsk' ).val('1');
-			} else {
-				$( '#flagViskasIsk' ).val('0');
-			}
-
+						
 			nauja_kelione= {
 				id: $('#id').val()
 				, pav: $( '#pav' ).val()
 				, apras: $('#apras').val()
-				, flagPoilsines:  $( '#flagPoilsines' ).val() 
-				, flagPazintines:  $( '#flagPazintines' ).val()
-				, flagViskasIsk:  $( '#flagViskasIsk' ).val()
+				, flagPoilsines:  ( flagPoilsinesCheckbox ? '1' : '0' )
+				, flagPazintines:  ( flagPazintinesCheckbox ? '1' : '0' )
+				, flagViskasIsk:  ( flagViskasIskCheckbox ? '1' : '0' )
 				, kaina:  $( '#kaina' ).val() 
 				, trukmeVal:  $( '#trukmeVal' ).val() 
 			}
