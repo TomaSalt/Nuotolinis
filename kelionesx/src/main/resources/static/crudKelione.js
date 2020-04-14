@@ -30,11 +30,11 @@ class Kelione {
 		res_eilute = '<tr data-id="' + this.id  
 			+ '" data-pav="' + this.pav 
 			+ '" data-apras="' + this.apras 
-			+ '" data-flagpoilsines="' + this.flagPoilsines 
-			+ '" data-flagpazintines="' + this.flagPazintines 
-			+ '" data-flagviskasisk="' + this.flagViskasIsk
+			+ '" data-flagpoilsines="' + this.flag_Poilsines 
+			+ '" data-flagpazintines="' + this.flag_Pazintines 
+			+ '" data-flagviskasisk="' + this.flag_viskas_isk
 			+ '" data-kaina="' + this.kaina 
-			+ '" data-trukmeval="' + this.trukmeVal 
+			+ '" data-trukmeval="' + this.trukme_val 
 			+ '">'
 			+ '<td>' + this.id + '</td>' 
 			+ '<td>' + this.pav + '</td>'
@@ -49,7 +49,7 @@ class Kelione {
 			+ '<div>' + checked3 + '</div>'
 			+ '</td>'
 			+ '<td>' + this.kaina + '</td>'
-			+ '<td>' + this.trukmeVal + '</td>'
+			+ '<td>' + this.trukme_val + '</td>'
 			+ '<td><input type="button" class="trinti" value="trinti">'
 			+ '<input type="button" class="redaguoti" value="redaguoti"></td>'
 			;
@@ -61,11 +61,11 @@ class Kelione {
 		"id=" + this.id
 		+ "&pav="  + this.pav
 		+ "&apras=" + this.apras
-		+ "&flagPoilsines=" + this.flagPoilsines
-		+ "&flagPazintines=" + this.flagPazintines
-		+ "&flagViskasIsk=" + this.flagViskasIsk
+		+ "&flagPoilsines=" + this.flag_poilsines
+		+ "&flagPazintines=" + this.flag_pazintines
+		+ "&flagViskasIsk=" + this.flag_viskas_isk
 		+ "&kaina=" + this.kaina
-		+ "&trukmeVal=" + this.trukmeVal
+		+ "&trukmeVal=" + this.trukme_val;
 		return parametrai;
 	}
 	parametraiTrynimui (){
