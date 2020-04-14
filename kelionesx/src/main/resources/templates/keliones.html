@@ -56,18 +56,24 @@
 							id: ( $( "#id" ).val() ),
 							pav: ( $( "#pav" ).val() ),
 							apras: ( $( "#apras" ).val() ),
-							flag_poilsines: ( flagPoilsinesCheckbox ? '1' : '0' ),
-							flag_pazintines: ( flagPazintinesCheckbox ? '1' : '0'),
-							flag_viskas_isk: ( flagViskasIskCheckbox ? '1' : '0'),
+							flagPoilsines: ( flagPoilsinesCheckbox ? '1' : '0' ),
+							flagPazintines: ( flagPazintinesCheckbox ? '1' : '0'),
+							flagViskasIsk: ( flagViskasIskCheckbox ? '1' : '0'),
 							kaina: ($( '#kaina' ).val() ),
-							trukme_val: ($( '#trukmeVal' ).val() )
-						}
+							trukmeVal: ($( '#trukmeVal' ).val() )
+						};
+						console.log(dialogo_duomenys);
 						if( $( "#id" ).val() == 0 ){
-							keliones.push = new Kelione (dialogo_duomenys);
+							keliones.push(new Kelione(dialogo_duomenys));
+							
+							console.log("keliones masyvo ilgis = " + keliones.length);
+							for( i = 0; i < keliones.length; i++){
+							console.log(keliones[i]);
+							}
 							keliones[keliones.length - 1].addKelione();
 						} else {
 							keliones[id_masyvo] = dialogo_duomenys;
-							keliones[id_masyvo].addKelione(dialog.dialog);
+							keliones[id_masyvo].addKelione();
 						}
 						pasiimtiKeliones();
 					},
@@ -130,10 +136,7 @@
 								+ '<th>Veiksmai</th>'
 							+ '</tr>';
 					for ( i = 0; i < data.length; i++) {
-						keliones.push = (new Kelione( data[ i ]));
-						console.log(data[i]);
-						console.log(keliones[i]);
-						alert("ID " + data[i].id);
+						keliones.push = new Kelione( data[ i ]);
 						res_str += keliones[ i ].rezultatoEilute();
 					}
 					res_str += '</table>'
@@ -142,7 +145,7 @@
 			}
 			$( "#create-kelione" ).button().on( "click", function() {
 				$( '#pav_veiksmo' ).html ( 'Kuriamas naujas irasas' );
-				$( '#id' ).val ( '0' );
+				$( '#id' ).val ( 0 );
 				dialog.dialog( "open" );
 			});
 			$( '.trinti' ).on ( 'click', function() {
@@ -197,8 +200,6 @@
 					dialog.dialog( "open" );
 				});
 			});
-			
-
 		});	
 	</script>
 </head>
