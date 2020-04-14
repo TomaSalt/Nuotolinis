@@ -1,50 +1,14 @@
-class CrudKelione {
-		
+class Kelione {
+	
 	constructor ( kelione ) {
 		this.id = kelione.id;
 		this.pav = kelione.pav;
 		this.apras = kelione.apras; 
-		this.flag_poilsines = kelione.flag_poilsines; 
-		this.flag_pazintines = kelione.flag_pazintines;
-		this.flag_viskas_isk = kelione.flag_viskas_isk;
+		this.flag_poilsines = kelione.flagPoilsines;
+		this.flag_pazintines = kelione.flagPazintines;
+		this.flag_viskas_isk = kelione.flagViskasIsk;
 		this.kaina = kelione.kaina;
-		this.trukme_val = kelione.trukme_val;
-	}
-	void keistiBusena(busena) {
-		params_str = 'id=' + this.id;
-		if (busena == 'trinti'){
-			$('#pav_keliones').val(this.pav);
-			trintidialog.dialog( "open" );				
-		}
-		if (busena == 'redaguoti'){
-			
-			$( '#pav_veiksmo' ).html ( 'Redaguojamas irasas' );
-			$('#id').val(this.id);
-			$( '#pav' ).val(this.pav);
-			$( '#apras' ).val(this.apras);
-			$( '#kaina' ).val(this.kaina);
-			$( '#trukmeVal' ).val(this.trukme_val);
-			if ( this.flag_poilsines == 1){
-				alert("flag poilsines pazymeti");
-				$("#flagPoilsines").prop('checked', true);
-			} else {
-				$("#flagPoilsines").prop('checked', false);
-			}
-			if ( this.flag_pazintines == 1){
-				alert("flag pazintines pazymeti");
-				$("#flagPazintines").prop('checked', true);
-			} else {
-				$("#flagPazintines").prop('checked', false);
-			}
-			if ( this.flag_viskas_isk == 1){
-				alert("flag viskas iskaiciuota pazymeti");
-				$("#flagViskasIsk").prop('checked', true);
-			} else {
-				$("#flagViskasIsk").prop('checked', false);
-			}
-			dialog.dialog( "open" );
-			
-		}
+		this.trukme_val = kelione.trukmeVal;
 	}
 	rezultatoEilute() {
 		var checked1, checked2, checked3, res_eilute;
@@ -92,7 +56,7 @@ class CrudKelione {
 		res_eilute += '</tr>';
 		return res_eilute;
 	}
-	parametraiAjaxui (){
+	parametraiRedagavimui (){
 		var parametrai =
 		"id=" + this.id
 		+ "&pav="  + this.pav
@@ -103,5 +67,35 @@ class CrudKelione {
 		+ "&kaina=" + this.kaina
 		+ "&trukmeVal=" + this.trukmeVal
 		return parametrai;
+	}
+	parametraiTrynimui (){
+		var parametrai =	"id=" + this.id;
+		return parametrai;
+	}
+	
+	findform (){
+		var form = dialog.find( 'form' ).on ("submit", function(event){
+			event.preventDefault();
+			addKelione();
+		});
+		return form;
+	}
+
+	addKelione() {
+			
+		alert ( 'Saugoma ' );
+
+
+		alert ( "/ajax/saugoti-kelione?" + parametraiRedagavimui () );
+			
+		$.ajax(
+			 "/ajax/saugoti-kelione?" + parametraiRedagavimui ()
+			)
+
+		.done( function( data ) {
+			
+			dialog.dialog ("close");
+
+		});
 	}
 }
