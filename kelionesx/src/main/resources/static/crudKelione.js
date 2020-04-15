@@ -11,23 +11,26 @@ class Kelione {
 		this.trukme_val = kelione.trukmeVal;
 	}
 	rezultatoEilute() {
-		var checked1, checked2, checked3, res_eilute ;
+		this.checked1 = "";
+		this.checked2 = "";
+		this.checked3 = "";
+		this.res_eilute = "";
 		if (this.flag_poilsines == 1){
-			checked1 = "&check;";
+			this.checked1 += "&check;";
 		} else {
-			checked1 = "&cross;";
+			this.checked1 += "&cross;";
 		}
 		if (this.flag_pazintines == 1){
-			checked2 = "&check;";
+			this.checked2 += "&check;";
 		} else {
-			checked2 = "&cross;";
+			this.checked2 += "&cross;";
 		}
 		if (this.flag_viskas_isk == 1){
-			checked3 = "&check;";
+			this.checked3 += "&check;";
 		} else {
-			checked3 = "&cross;";
+			this.checked3 += "&cross;";
 		}
-		res_eilute = '<tr data-id="' + this.id  
+		this.res_eilute += '<tr data-id="' + this.id  
 			+ '" data-pav="' + this.pav 
 			+ '" data-apras="' + this.apras 
 			+ '" data-flagpoilsines="' + this.flag_poilsines 
@@ -40,25 +43,25 @@ class Kelione {
 			+ '<td>' + this.pav + '</td>'
 			+ '<td>' + this.apras + '</td>'
 			+ '<td>'
-			+ '<div>' + checked1 + '</div>'
+			+ '<div>' + this.checked1 + '</div>'
 			+ '</td>'
 			+ '<td>' 
-			+ '<div>' + checked2 + '</div>'
+			+ '<div>' + this.checked2 + '</div>'
 			+ '</td>'
 			+ '<td>'
-			+ '<div>' + checked3 + '</div>'
+			+ '<div>' + this.checked3 + '</div>'
 			+ '</td>'
 			+ '<td>' + this.kaina + '</td>'
 			+ '<td>' + this.trukme_val + '</td>'
 			+ '<td><input type="button" class="trinti" value="trinti">'
 			+ '<input type="button" class="redaguoti" value="redaguoti"></td>'
 			;
-		res_eilute += '</tr>';
-		return res_eilute;
+		this.res_eilute += '</tr>';
+		return this.res_eilute;
 	}
 	parametraiRedagavimui (){
-		var parametrai =
-		"id=" + this.id
+		this.parametraiRed = "";
+		this.parametraiRed += "id=" + this.id
 		+ "&pav="  + this.pav
 		+ "&apras=" + this.apras
 		+ "&flagPoilsines=" + this.flag_poilsines
@@ -66,33 +69,27 @@ class Kelione {
 		+ "&flagViskasIsk=" + this.flag_viskas_isk
 		+ "&kaina=" + this.kaina
 		+ "&trukmeVal=" + this.trukme_val;
-		return parametrai;
+		return this.parametraiRed;
 	}
 	parametraiTrynimui (){
-		var parametrai =	"id=" + this.id;
-		return parametrai;
+		this.parametraiTryn = "";
+		this.parametraiTryn += "id=" + this.id;
+		return this.parametraiTryn;
 	}
 	
-	/*findform (){
-		var form = dialog.find( 'form' ).on ("submit", function(event){
-			event.preventDefault();
-			addKelione();
-		});
-		return form;
-	}*/
-
-	addKelione(duomenys) {
+	addKelione(dialog) {
+		this.naujasdialog = dialog;
 		alert ( 'Saugoma ' );
 
-		alert ( "/ajax/saugoti-kelione?" + duomenys);
+		alert ( "/ajax/saugoti-kelione?" + this.parametraiRedagavimui());
 			
 		$.ajax(
-			 "/ajax/saugoti-kelione?" + duomenys
+			 "/ajax/saugoti-kelione?" + this.parametraiRedagavimui()
 			)
 
 		.done( function( data ) {
 			
-			dialog.dialog ("close");
+			this.naujasdialog.dialog ("close");
 
 		});
 	}
