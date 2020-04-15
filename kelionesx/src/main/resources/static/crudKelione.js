@@ -10,6 +10,16 @@ class Kelione {
 		this.kaina = kelione.kaina;
 		this.trukme_val = kelione.trukmeVal;
 	}
+	konstruktoriausSeteris( kelione ) {
+		this.id = kelione.id;
+		this.pav = kelione.pav;
+		this.apras = kelione.apras; 
+		this.flag_poilsines = kelione.flagPoilsines;
+		this.flag_pazintines = kelione.flagPazintines;
+		this.flag_viskas_isk = kelione.flagViskasIsk;
+		this.kaina = kelione.kaina;
+		this.trukme_val = kelione.trukmeVal;
+	}
 	rezultatoEilute() {
 		this.checked1 = "";
 		this.checked2 = "";
@@ -77,8 +87,8 @@ class Kelione {
 		return this.parametraiTryn;
 	}
 	
-	addKelione(dialog) {
-		this.naujasdialog = dialog;
+	addKelione() {
+		
 		alert ( 'Saugoma ' );
 
 		alert ( "/ajax/saugoti-kelione?" + this.parametraiRedagavimui());
@@ -88,8 +98,6 @@ class Kelione {
 			)
 
 		.done( function( data ) {
-			
-			this.naujasdialog.dialog ("close");
 
 		});
 	}
