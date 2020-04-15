@@ -11,7 +11,7 @@ class Kelione {
 		this.trukme_val = kelione.trukmeVal;
 	}
 	rezultatoEilute() {
-		var checked1, checked2, checked3, res_eilute;
+		var checked1, checked2, checked3, res_eilute ;
 		if (this.flag_poilsines == 1){
 			checked1 = "&check;";
 		} else {
@@ -30,8 +30,8 @@ class Kelione {
 		res_eilute = '<tr data-id="' + this.id  
 			+ '" data-pav="' + this.pav 
 			+ '" data-apras="' + this.apras 
-			+ '" data-flagpoilsines="' + this.flag_Poilsines 
-			+ '" data-flagpazintines="' + this.flag_Pazintines 
+			+ '" data-flagpoilsines="' + this.flag_poilsines 
+			+ '" data-flagpazintines="' + this.flag_pazintines 
 			+ '" data-flagviskasisk="' + this.flag_viskas_isk
 			+ '" data-kaina="' + this.kaina 
 			+ '" data-trukmeval="' + this.trukme_val 
@@ -73,23 +73,21 @@ class Kelione {
 		return parametrai;
 	}
 	
-	findform (){
+	/*findform (){
 		var form = dialog.find( 'form' ).on ("submit", function(event){
 			event.preventDefault();
 			addKelione();
 		});
 		return form;
-	}
+	}*/
 
-	addKelione() {
-			
+	addKelione(duomenys) {
 		alert ( 'Saugoma ' );
 
-
-		alert ( "/ajax/saugoti-kelione?" + parametraiRedagavimui () );
+		alert ( "/ajax/saugoti-kelione?" + duomenys);
 			
 		$.ajax(
-			 "/ajax/saugoti-kelione?" + parametraiRedagavimui ()
+			 "/ajax/saugoti-kelione?" + duomenys
 			)
 
 		.done( function( data ) {
