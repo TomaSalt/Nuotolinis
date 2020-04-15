@@ -71,13 +71,11 @@
 							}
 							id_masyvo = keliones.length - 1;
 							console.log("keliones id  masyvo = " + id_masyvo);
-							var duom = keliones[id_masyvo].parametraiRedagavimui();
-							console.log("parametrai redagavimui = " + duom);
-							keliones[id_masyvo].addKelione(duom);
+							console.log("parametrai redagavimui = " + keliones[id_masyvo].parametraiRedagavimui());
+							keliones[id_masyvo].addKelione(dialog);
 						} else {
 							keliones[id_masyvo] = dialogo_duomenys;
-							var duom = keliones[id_masyvo].parametraiRedagavimui();
-							keliones[id_masyvo].addKelione(duom);
+							keliones[id_masyvo].addKelione(dialog);
 						}
 						pasiimtiKeliones();
 					},
