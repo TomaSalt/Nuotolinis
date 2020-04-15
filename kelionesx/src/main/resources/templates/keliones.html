@@ -38,6 +38,7 @@
 		$( document ).ready ( function() {
 			var res_str;
 			var id_keliones;
+			var ats;
 			allFields = $( [] ).add( $( "#id" ) ).add( $( "#pav" ) ).add( $( "#apras" ) ).add( $("#flagPoilsines") ).add( $("#flagPazintines") ).add( $("#flagViskasIsk") ).add( $("#kaina") ).add( $("#trukmeVal") );
 			keliones = [];
 			dialogo_duomenys = [];
@@ -72,12 +73,14 @@
 							id_masyvo = keliones.length - 1;
 							console.log("keliones id  masyvo = " + id_masyvo);
 							console.log("parametrai redagavimui = " + keliones[id_masyvo].parametraiRedagavimui());
-							keliones[id_masyvo].addKelione(dialog);
+							keliones[id_masyvo].addKelione();
+
 						} else {
-							keliones[id_masyvo] = dialogo_duomenys;
-							keliones[id_masyvo].addKelione(dialog);
+							keliones[id_masyvo].konstruktoriausSeteris(dialogo_duomenys);
+							keliones[id_masyvo].addKelione();
 						}
 						pasiimtiKeliones();
+						$(this).dialog("close");
 					},
 					"Atsaukti": function() {
 						$(this).dialog( "close" );
