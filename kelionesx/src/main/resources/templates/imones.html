@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Imones</title>
+    <meta charset="utf-8">
+    		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    		<link rel="stylesheet" href="jqueryui.css">	
+		<link rel="stylesheet" href="main.css">		
+		<style>
+			.anuliuotas, .sanuliuotas {
+				background-color: lightblue;
+			}
+			.ivykdytas, .sivykdytas {
+				background-color: lightgreen;
+			}
+			table {
+				border-collapse: colapse;
+			}
+			th {
+				background-color: lightgreen;			
+			}
+			th, td {
+				padding: 6px;
+				border: 1px solid grey;
+			}
+			.ch_lab {
+				display: inline-block ! important;
+			}
+		</style>
+	    <script
+		src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous">
+	    </script>
+	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
+	    <script src="crud.js"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		    var rusys = /*[[${rusis_kat.size()}]]*/ 'Sebastian';
+
+
+		/*]]>*/
+    
+		$( document ).ready ( function() {
+
+			params = {
+			
+				fields: [ 'pav', 'kontaktai' ]
+				, fields_names: [ 'Pavadinimas', 'Kontaktai' ]
+				, url : 'http://localhost:8080/ajax/lst-imones'
+				, field_data: ''
+				, id_html_saraso: 'imones'
+				, id_html_dialog_formos: ''
+				, dialog_size_x: 300
+				, dialog_size_y: 390
+				, title_dialog_form: 'Imone'
+				, url_save_rec: 'http://localhost:8080/ajax/saugoti-imone?id_parent=0'
+				, url_delete_rec:  'http://localhost:8080/ajax/salinti-imone'
+				, fields_edit:  [ 'pav' ]
+				, field_name: 'pav'
+			}
+			
+			crud_imoniu = new crud ( params );
+			
+			crud_imoniu.initEmpty();
+			crud_imoniu.refreshData();
+			
+		});			
+	</script>
+</head>
+<body>
+	<div id="imones">
+		<nav>
+			<a th:each="menu_item : ${lst_menu}" th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
+		</nav>
+	<!--<div id="dialog-form" title="Nauja imone">
+		<p class="validateTips">Visi laukai privalomi</p>
+		<p id="pav_veiksmo"></p>
+		<form id="imones_forma" method="POST">
+			<fieldset>
+				<input type="hidden" name="id" id="id" value="0">
+				<label for="pav">Pavadinimas</label>
+				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all" required>
+				<label for="kontaktai">Kontaktai</label>
+				<input type="text" name="kontaktai" id="kontaktai" value="" class="text ui-widget-content ui-corner-all" required>
+				<br>
+				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+			</fieldset>
+		</form>
+	</div>
+	<div id="main">
+		<h3>Esamos imones</h3>
+		<button id="create-imone">Irasyti imone</button>
+		<div id="imones">
+		</div>
+	</div>
+	<div id="dialog-confirm" title="Istrinti irasa">
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+		<p>Šis įrašas <span id="pav_imones"></span> bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
+		<form id="salinimo_forma" method="POST">
+			<input type="hidden" name="id" id="id" value="0">
+			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		</form>-->
+	</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Autobusai</title>
+    <meta charset="utf-8">
+    		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    		<link rel="stylesheet" href="jqueryui.css">	
+		<link rel="stylesheet" href="main.css">		
+		<style>
+			.anuliuotas, .sanuliuotas {
+				background-color: lightblue;
+			}
+			.ivykdytas, .sivykdytas {
+				background-color: lightgreen;
+			}
+			table {
+				border-collapse: colapse;
+			}
+			th {
+				background-color: lightgreen;			
+			}
+			th, td {
+				padding: 6px;
+				border: 1px solid grey;
+			}
+			.ch_lab {
+				display: inline-block ! important;
+			}
+		</style>
+	    <script
+		src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous">
+	    </script>
+	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
+	    <script src="crud.js"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		    var rusys = /*[[${rusis_kat.size()}]]*/ 'Sebastian';
+
+
+		/*]]>*/
+    
+		$( document ).ready ( function() {
+
+			params = {
+			
+				fields: [ 'modelis', 'metai', 'klase', 'kaina_km', 'kaina_val', 'vietu_sk', 'imones_id' ]
+				, fields_names: [ 'Modelis', 'Metai', 'Kaina 1 km', 'Kaina valandos', 'Vietu skaicius', 'Imones ID' ]
+				, url : 'http://localhost:8080/ajax/lst-autobusai'
+				, field_data: ''
+				, id_html_saraso: 'autobusai'
+				, id_html_dialog_formos: ''
+				, dialog_size_x: 300
+				, dialog_size_y: 390
+				, title_dialog_form: 'Autobusas'
+				, url_save_rec: 'http://localhost:8080/ajax/saugoti-autobusa?id_parent=0'
+				, url_delete_rec:  'http://localhost:8080/ajax/salinti-autobusa'
+				, fields_edit:  [ 'modelis' ]
+				, field_name: 'modelis'
+			}
+			
+			crud_autobusu = new crud ( params );
+			
+			crud_autobusu.initEmpty();
+			crud_autobusu.refreshData();
+			
+		});			
+	</script>
+</head>
+<body>
+	<div id="autobusai">
+		<nav>
+			<a th:each="menu_item : ${lst_menu}" th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
+		</nav>
+	<!--<div id="dialog-form" title="Naujas autobusas">
+		<p class="validateTips">Visi laukai privalomi</p>
+		<p id="pav_veiksmo"></p>
+		<form id="autobuso_forma" method="POST">
+			<fieldset>
+				<input type="hidden" name="id" id="id" value="0">
+				<label for="modelis">modelis</label>
+				<input type="text" name="modelis" id="modelis" value="" class="text ui-widget-content ui-corner-all" required>
+				<label for="metai">metai</label>
+				<input type="number" name="metai" id="metai" value="0" class="text ui-widget-content ui-corner-all" required>
+				<label for="klase">Klase</label>
+				<input type="text" name="klase" id="klase" value="" class="text ui-widget-content ui-corner-all" required>
+				<label for="kaina_km">Kaina km</label>
+				<input type="number" name="kaina_km" id="kaina_km" value="0" class="text ui-widget-content ui-corner-all" required>
+				<label for="kaina_val">Kaina val</label>
+				<input type="number" name="kaina_val" id="kaina_val" value="0" class="text ui-widget-content ui-corner-all" required>
+				<label for="vietu_sk">Vietu skaicius</label>
+				<input type="number" name="vietu_sk" id="vietu_sk" value="0" class="text ui-widget-content ui-corner-all" required>
+				<label for="imones_id">Imones id</label>
+				<input type="number" name="imones_id" id="imones_id" value="0" class="text ui-widget-content ui-corner-all" required>
+				<br>
+				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+			</fieldset>
+		</form>
+	</div>
+	<div id="main">
+		<h3>Esami autobusai</h3>
+		<button id="create-autobusa">Irašyti autobusą</button>
+		<div id="autobusai">
+		</div>
+	</div>
+	<div id="dialog-confirm" title="Ištrinti įrašą?">
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+		<p>Šis įrašas <span id="pav_autobuso"></span> bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
+		<form id="salinimo_forma" method="POST">
+			<input type="hidden" name="id" id="id" value="0">
+			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		</form>-->
+	</div>
+</body>
+</html>
