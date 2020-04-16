@@ -32,7 +32,13 @@ public class AjaxController {
 	MiestaiRepository miestaiRepository;	
 	
 	@Autowired
-	Keliones_MiestaiRepository keliones_MiestaiRepository;		
+	Keliones_MiestaiRepository keliones_MiestaiRepository;	
+	
+	@Autowired
+	AutobusaiRepository autobusaiRepository;
+	
+	@Autowired
+	ImonesRepository imonesRepository;
 	
 	@GetMapping(path="/saugoti-kelione") // Map ONLY GET Requests
 	public @ResponseBody String saugotiKelione (@RequestParam Integer id 
@@ -258,5 +264,90 @@ public class AjaxController {
 			   res = "Deleted";
 		}		
 		return res;
+	}
+	@GetMapping(path="/saugoti-autobusa") // Map ONLY GET Requests
+	public @ResponseBody String saugotiAutobusa (@RequestParam Integer id 
+			, @RequestParam String modelis
+			, @RequestParam Integer metai
+			, @RequestParam String klase
+			, @RequestParam Double kaina_km	
+			, @RequestParam Double kaina_val	
+			, @RequestParam Integer vietu_sk
+			, @RequestParam Integer imones_id
+
+			) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+		
+		String res = "Not done";
+		Autobusai n = new Autobusai();
+		
+		if (id > 0) {
+		
+			Optional <Autobusai> found = autobusaiRepository.findById( id );
+		
+			// variantas trynimui
+			// uzsakymaiRepository.deleteById(id);
+		
+			if ( found.isPresent() ) {
+			
+			   n = found.get();
+			   n.setId(id);
+			}
+		}
+		
+	    n.setModelis( modelis );
+	    n.setMetai(metai);
+	    n.setKlase(klase);
+	    n.setKaina_km(kaina_km);
+		n.setKaina_val(kaina_val);
+		n.setVietu_sk(vietu_sk);
+	    n.setImones_id(imones_id);
+	    
+	    autobusaiRepository.save(n);	
+	    res = "Saved";
+	    
+		return res;
+	}
+	
+	@GetMapping(path="/salinti-autobusa") // Map ONLY GET Requests
+	public @ResponseBody String salintiAutobusa (@RequestParam Integer id 
+			) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+		
+		Optional <Autobusai> found = autobusaiRepository.findById( id );
+		
+		String res = "Not done";
+		
+		if ( found.isPresent() ) {
+			
+			   Autobusai n = found.get();
+			   autobusaiRepository.deleteById(id);
+			   res = "Deleted";
+		}		
+		return res;
 	}	
+	/**
+	 * Pateikia visu autobusu JSON sarasa
+	 * 
+	 * [@link Autobusai]
+	 * @return Iterable<Autobusai>
+	 */
+	@GetMapping(path="/lst-autobusai")
+	public @ResponseBody Iterable<Autobusai> getAllAutobusai() {
+		// This returns a JSON or XML with the users
+		return autobusaiRepository.findAll();
+	}	
+	/**
+	 * Pateikia visu imoniu JSON sarasa
+	 * 
+	 * [@link Imones]
+	 * @return Iterable<Imones>
+	 */
+	@GetMapping(path="/lst-imones")
+	public @ResponseBody Iterable<Imones> getAllImones() {
+		// This returns a JSON or XML with the users
+		return imonesRepository.findAll();
+	}
 }

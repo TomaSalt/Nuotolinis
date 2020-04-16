@@ -45,7 +45,7 @@ public class PageController {
     }   
     
     @GetMapping("/miestai")
-    public String klientai(Model model) {
+    public String miestai(Model model) {
         model.addAttribute("lst_menu", Menu.values() );    	
         return "miestai";
     }    
@@ -55,7 +55,16 @@ public class PageController {
         model.addAttribute("lst_menu", Menu.values() );
         return "miestas";
     }  
-        
+    @GetMapping("/autobusai")
+    public String autobusai(Model model) {
+        model.addAttribute("lst_menu", Menu.values() );
+        return "autobusai";
+    } 
+    @GetMapping("/imones")
+    public String imones(Model model) {
+        model.addAttribute("lst_menu", Menu.values() );
+        return "imones";
+    } 
 	/*@GetMapping(path="/pasiulymai")
 	public  String											
 		getPasiulymai(
