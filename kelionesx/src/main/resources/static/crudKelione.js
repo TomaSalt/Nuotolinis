@@ -1,14 +1,7 @@
 class Kelione {
 	
 	constructor ( kelione ) {
-		this.id = kelione.id;
-		this.pav = kelione.pav;
-		this.apras = kelione.apras; 
-		this.flag_poilsines = kelione.flagPoilsines;
-		this.flag_pazintines = kelione.flagPazintines;
-		this.flag_viskas_isk = kelione.flagViskasIsk;
-		this.kaina = kelione.kaina;
-		this.trukme_val = kelione.trukmeVal;
+		this.konstruktoriausSeteris( kelione );
 	}
 	konstruktoriausSeteris( kelione ) {
 		this.id = kelione.id;
@@ -88,10 +81,8 @@ class Kelione {
 	}
 	
 	addKelione() {
-		
-		alert ( 'Saugoma ' );
 
-		alert ( "/ajax/saugoti-kelione?" + this.parametraiRedagavimui());
+		alert ( "Saugoma /ajax/saugoti-kelione?" + this.parametraiRedagavimui());
 			
 		$.ajax(
 			 "/ajax/saugoti-kelione?" + this.parametraiRedagavimui()
