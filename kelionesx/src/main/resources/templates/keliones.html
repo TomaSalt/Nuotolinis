@@ -52,7 +52,6 @@
 						var flagPoilsinesCheckbox = $('#flagPoilsines').is(':checked');
 						var flagPazintinesCheckbox = $('#flagPazintines').is(':checked');
 						var flagViskasIskCheckbox = $('#flagViskasIsk').is(':checked');
-						alert(flagPoilsinesCheckbox + " " + flagPazintinesCheckbox + " " + flagViskasIskCheckbox);
 						dialogo_duomenys = {
 							id: ( $( "#id" ).val() ),
 							pav: ( $( "#pav" ).val() ),
@@ -63,16 +62,9 @@
 							kaina: ($( '#kaina' ).val() ),
 							trukmeVal: ($( '#trukmeVal' ).val() )
 						};
-						console.log(dialogo_duomenys);
 						if( $( "#id" ).val() == 0 ){
 							keliones.push(new Kelione(dialogo_duomenys));
-							console.log("keliones masyvo ilgis = " + keliones.length);
-							for( i = 0; i < keliones.length; i++){
-								console.log(keliones[i]);
-							}
 							id_masyvo = keliones.length - 1;
-							console.log("keliones id  masyvo = " + id_masyvo);
-							console.log("parametrai redagavimui = " + keliones[id_masyvo].parametraiRedagavimui());
 							keliones[id_masyvo].addKelione();
 
 						} else {
@@ -93,7 +85,6 @@
 			});
 			var form = dialog.find( 'form' ).on ("submit", function(event){
 				event.preventDefault();
-				keliones[id_masyvo].addKelione(keliones[id_masyvo].parametraiRedagavimui());
 			});
 		
 			var trintidialog = $( "#dialog-confirm" ).dialog({
@@ -153,7 +144,6 @@
 					$( '.trinti' ).on ( 'click', function() {
 						$( this ).each ( function() {
 							id_keliones = $( this ).parent( ).parent().data( 'id' );
-							alert("Trinti sita reikala");
 							for ( i = 0; i < keliones.length; i++){
 								if ( keliones[ i ].id == id_keliones ){
 									id_masyvo = i;
@@ -182,24 +172,20 @@
 							$( '#kaina' ).val(keliones[id_masyvo].kaina);
 							$( '#trukmeVal' ).val(keliones[id_masyvo].trukme_val);
 							if ( keliones[id_masyvo].flag_poilsines == 1){
-								alert("flag poilsines pazymeti");
 								$("#flagPoilsines").prop('checked', true);
 							} else {
 								$("#flagPoilsines").prop('checked', false);
 							}
 							if ( keliones[id_masyvo].flag_pazintines == 1){
-								alert("flag pazintines pazymeti");
 								$("#flagPazintines").prop('checked', true);
 							} else {
 								$("#flagPazintines").prop('checked', false);
 							}
 							if ( keliones[id_masyvo].flag_viskas_isk == 1){
-								alert("flag viskas iskaiciuota pazymeti");
 								$("#flagViskasIsk").prop('checked', true);
 							} else {
 								$("#flagViskasIsk").prop('checked', false);
 							}
-							alert("flag " + " " + keliones[id_masyvo].flag_poilsines + " " + keliones[id_masyvo].flag_pazintines + " " + keliones[id_masyvo].flag_viskas_isk);
 							dialog.dialog( "open" );
 						});
 					});
