@@ -35,29 +35,24 @@
 	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
 	    <script src="crud.js"></script>
 	<script th:inline="javascript">
-		/*<![CDATA[*/
-
-		    var rusys = /*[[${rusis_kat.size()}]]*/ 'Sebastian';
-
-
-		/*]]>*/
     
 		$( document ).ready ( function() {
 
 			params = {
 			
 				fields: [ 'modelis', 'metai', 'klase', 'kaina_km', 'kaina_val', 'vietu_sk', 'imones_id' ]
-				, fields_names: [ 'Modelis', 'Metai', 'Kaina 1 km', 'Kaina valandos', 'Vietu skaicius', 'Imones ID' ]
+				, fields_names: [ 'Modelis', 'Metai', 'Klase', 'Kaina 1 km', 'Kaina valandos', 'Vietu skaicius', 'Imones ID' ]
 				, url : 'http://localhost:8080/ajax/lst-autobusai'
-				, field_data: ''
+				, field_data: '' 
 				, id_html_saraso: 'autobusai'
 				, id_html_dialog_formos: ''
 				, dialog_size_x: 300
 				, dialog_size_y: 390
 				, title_dialog_form: 'Autobusas'
-				, url_save_rec: 'http://localhost:8080/ajax/saugoti-autobusa?id_parent=0'
+				, url_save_rec: 'http://localhost:8080/ajax/saugoti-autobusa'
 				, url_delete_rec:  'http://localhost:8080/ajax/salinti-autobusa'
-				, fields_edit:  [ 'modelis' ]
+				, fields_edit:  [ 'modelis', 'metai', 'klase', 'kaina_km', 'kaina_val', 'vietu_sk', 'imones_id' ]
+				, fields_ed_types: [ 'text', 'text', 'text', 'text', 'text', 'text', 'text' ]
 				, field_name: 'modelis'
 			}
 			
@@ -70,7 +65,7 @@
 	</script>
 </head>
 <body>
-	<div id="autobusai">
+	<div id="menu">
 		<nav>
 			<a th:each="menu_item : ${lst_menu}" th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
 		</nav>
@@ -112,6 +107,8 @@
 			<input type="hidden" name="id" id="id" value="0">
 			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 		</form>-->
+	</div>
+	<div id="autobusai">
 	</div>
 </body>
 </html>

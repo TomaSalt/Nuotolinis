@@ -338,6 +338,56 @@ public class AjaxController {
 	public @ResponseBody Iterable<Autobusai> getAllAutobusai() {
 		// This returns a JSON or XML with the users
 		return autobusaiRepository.findAll();
+	}
+	@GetMapping(path="/saugoti-imone") // Map ONLY GET Requests
+	public @ResponseBody String saugotiImone (@RequestParam Integer id 
+			, @RequestParam String pav
+			, @RequestParam String kontaktai
+			
+			) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+		
+		String res = "Not done";
+		Imones n = new Imones();
+		
+		if (id > 0) {
+		
+			Optional <Imones> found = imonesRepository.findById( id );
+			
+			if ( found.isPresent() ) {
+			
+			   n = found.get();
+			   n.setId(id);
+			}
+		}
+		
+	    n.setPav( pav );
+	    n.setKontaktai(kontaktai);
+	    
+	    imonesRepository.save(n);	
+	    res = "Saved";
+	    
+		return res;
+	}
+	
+	@GetMapping(path="/salinti-imone") // Map ONLY GET Requests
+	public @ResponseBody String salintiImone (@RequestParam Integer id 
+			) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+		
+		Optional <Imones> found = imonesRepository.findById( id );
+		
+		String res = "Not done";
+		
+		if ( found.isPresent() ) {
+			
+			   Imones n = found.get();
+			   imonesRepository.deleteById(id);
+			   res = "Deleted";
+		}		
+		return res;
 	}	
 	/**
 	 * Pateikia visu imoniu JSON sarasa

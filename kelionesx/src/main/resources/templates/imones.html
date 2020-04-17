@@ -35,12 +35,6 @@
 	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
 	    <script src="crud.js"></script>
 	<script th:inline="javascript">
-		/*<![CDATA[*/
-
-		    var rusys = /*[[${rusis_kat.size()}]]*/ 'Sebastian';
-
-
-		/*]]>*/
     
 		$( document ).ready ( function() {
 
@@ -55,9 +49,10 @@
 				, dialog_size_x: 300
 				, dialog_size_y: 390
 				, title_dialog_form: 'Imone'
-				, url_save_rec: 'http://localhost:8080/ajax/saugoti-imone?id_parent=0'
+				, url_save_rec: 'http://localhost:8080/ajax/saugoti-imone'
 				, url_delete_rec:  'http://localhost:8080/ajax/salinti-imone'
-				, fields_edit:  [ 'pav' ]
+				, fields_edit:  [ 'pav', 'kontaktai' ]
+				, fields_ed_types: [ 'text', 'text' ]
 				, field_name: 'pav'
 			}
 			
@@ -70,7 +65,7 @@
 	</script>
 </head>
 <body>
-	<div id="imones">
+	<div id="menu">
 		<nav>
 			<a th:each="menu_item : ${lst_menu}" th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
 		</nav>
@@ -102,6 +97,8 @@
 			<input type="hidden" name="id" id="id" value="0">
 			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 		</form>-->
+	</div>
+	<div id="imones">
 	</div>
 </body>
 </html>
