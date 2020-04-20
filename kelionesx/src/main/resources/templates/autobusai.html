@@ -33,35 +33,169 @@
 		crossorigin="anonymous">
 	    </script>
 	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
-	    <script src="crud.js"></script>
+	    <script src="crud2.js"></script>
 	<script th:inline="javascript">
     
 		$( document ).ready ( function() {
-
-			params = {
+				crudNuorodos = function(
 			
-				fields: [ 'modelis', 'metai', 'klase', 'kaina_km', 'kaina_val', 'vietu_sk', 'imones_id' ]
-				, fields_names: [ 'Modelis', 'Metai', 'Klase', 'Kaina 1 km', 'Kaina valandos', 'Vietu skaicius', 'Imones ID' ]
-				, url : 'http://localhost:8080/ajax/lst-autobusai'
-				, field_data: '' 
-				, id_html_saraso: 'autobusai'
-				, id_html_dialog_formos: ''
-				, dialog_size_x: 300
-				, dialog_size_y: 390
-				, title_dialog_form: 'Autobusas'
-				, url_save_rec: 'http://localhost:8080/ajax/saugoti-autobusa'
-				, url_delete_rec:  'http://localhost:8080/ajax/salinti-autobusa'
-				, fields_edit:  [ 'modelis', 'metai', 'klase', 'kaina_km', 'kaina_val', 'vietu_sk', 'imones_id' ]
-				, fields_ed_types: [ 'text', 'text', 'text', 'text', 'text', 'text', 'text' ]
-				, field_name: 'modelis'
+				fields
+				, fields_names
+				, url
+				, field_data
+				, id_html_saraso
+				, id_html_dialog_formos
+				, dialog_size_x
+				, dialog_size_y
+				, title_dialog_form
+				, url_save_rec  
+				, url_delete_rec
+				, fields_edit
+				, field_name
+				, fields_ed_types
+			
+			) {
+				params = {
+				
+					fields: fields
+					, fields_names: fields_names
+					, url : url
+					, field_data: field_data
+					, id_html_saraso: id_html_saraso
+					, id_html_dialog_formos: id_html_dialog_formos
+					, dialog_size_x: dialog_size_x
+					, dialog_size_y: dialog_size_y
+					, title_dialog_form: title_dialog_form
+					, url_save_rec: url_save_rec  
+					, url_delete_rec: url_delete_rec
+					, fields_edit: fields_edit
+					, field_name: field_name
+					, fields_ed_types: fields_ed_types
+				}
+				crud.call ( this, params );	// objektu suri�imas pagal https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype                (OS/eilute 1)  ..
+				
+				this.autobusai = [];
+				this.imones = [];
+				
+				this.getAutobusai = function() {
+																			// alert( 'run getProduktai' );
+					var i_am = this;
+					
+					$.ajax({
+							url: "http://localhost:8080/ajax/lst-autobusai" 
+					}).done(
+					
+						function( data_autobusai ) {
+						
+							i_am.autobusai = data_autobusai;
+							
+							$.ajax({
+							
+								url: "http://localhost:8080/ajax/lst-imones"
+												
+							}).done( 
+							
+								function ( data_imones ) {
+								
+									i_am.imones = data_imones;
+							
+									i_am.initEmpty();
+									i_am.refreshData();
+								}
+							);
+						}
+					);
+				}
+			}
+				
+			crudNuorodos.prototype = Object.create( crud.prototype ); // new crud;			// (OS/eilute 2)
+				
+			crudNuorodos.prototype.constructor = crudNuorodos;						// (OS/eilute 3)
+																				
+			crudNuorodos.prototype.htmDialogoEditFields = function ( i_am  ) {			//  .. ir paveldejimas ir polimorfizmas pagal https://toranbillups.com/blog/archive/2013/05/15/Basic-javascript-inheritance-and-polymorphism/
+				
+													
+				options_imones = '';
+				options_autobusai = '';
+				crud.prototype.htmDialogoEditFields ( i_am, [ 'modelis', 'metai', 'klase', 'kaina_km', 'kaina_val', 'vietu_sk', 'imones_id' ] );																			
+				for ( i= 0; i < this.autobusai.length; i++ ) {
+				
+					options_autobusai += '<option value="' + this.autobusai [ i ].modelis + '">' + this.autobusai [ i ].modelis + '</option>';
+
+				}
+				i_am.params.res_str += 	'<label for="modelis">modelis</label>' +
+						'<select type="text" name="modelis" id="modelis" class="text ui-widget-content ui-corner-all">' +
+							options_autobusai +
+						'</select>';
+				i_am.params.res_str += '<label for="metai">metai</label>' +
+							'<input type="text" name="metai" id="metai" value="" class="text ui-widget-content ui-corner-all" required>';
+				i_am.params.res_str += 	'<label for="klase">Klase</label>' +
+							'<input type="radio" name="liukso" value="liukso" style="display: inline-block"> - liukso' +
+							'<input type="radio" name="ekonomine" value="ekonomine" style="display: inline-block"> - ekonomine';
+				i_am.params.res_str += 	'<label for="kaina_km">Kaina km</label>' +
+							'<input type="number" name="kaina_km" id="kaina_km" value="0" class="text ui-widget-content ui-corner-all" required>';
+				i_am.params.res_str += 	'<label for="kaina_val">Kaina val</label>' +
+							'<input type="number" name="kaina_val" id="kaina_val" value="0" class="text ui-widget-content ui-corner-all" required>';
+				i_am.params.res_str += 	'<label for="vietu_sk">Vietu_sk</label>' +
+							'<input type="number" name="vietu_sk" id="vietu_sk" value="0" class="text ui-widget-content ui-corner-all" required>';
+				for ( i= 0; i < this.imones.length; i++ ) {
+																			
+					options_imones += '<option value="' + this.imones [ i ].id + '">' + this.imones [ i ].pav + '</option>';
+				}
+				i_am.params.res_str += 	'<label for="imones_id">Imones ID</label>' +
+						'<select type="text" name="imones_id" id="imones_id" class="text ui-widget-content ui-corner-all">' +
+							options_imones +
+						'</select>';
+			}
+/*				
+			crudPatiekaloProduktu.prototype.addColumns = function () {
+			
+				return '<td>bla bla</td>';
 			}
 			
-			crud_autobusu = new crud ( params );
+			crudPatiekaloProduktu.prototype.addHeadColumns = function () {
 			
-			crud_autobusu.initEmpty();
-			crud_autobusu.refreshData();
+				return '<th>Bla</th>';
+			}				
+*/																				
+			crud_nuorodos = new crudNuorodos ( 
+
+				[
+					'modelis' 
+					, 'metai'	
+					, 'klase'	
+					, 'kaina_km'	
+					, 'kaina_val'	
+					, 'vietu_sk'	
+					, 'imones_id'
+				]
+				, [ 'Modelis', 'Metai', 'Klase', 'Kaina 1 km', 'Kaina valandos', 'Vietu skaicius', 'Imones ID' ]
+				, 'http://localhost:8080/ajax/lst-autobusai'
+				, ''				
+				, 'autobusai'
+				, ''
+				, 400
+				, 640
+				, 'Autobusas'
+				,  'http://localhost:8080/ajax/saugoti-autobusa'
+				,  'http://localhost:8080/ajax/salinti-autobusa'
+				, [ 
+					'modelis' 
+					, 'metai'	
+					, 'klase'	
+					, 'kaina_km'	
+					, 'kaina_val'	
+					, 'vietu_sk'	
+					, 'imones_id'
+				]
+				, 'modelis'
+				,  [ 'select', 'number', 'radio', 'number', 'number', 'number', 'select' ]
+			);
+
+			crud_nuorodos.getAutobusai();
 			
-		});			
+		});
+		
 	</script>
 </head>
 <body>
@@ -69,46 +203,9 @@
 		<nav>
 			<a th:each="menu_item : ${lst_menu}" th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
 		</nav>
-	<!--<div id="dialog-form" title="Naujas autobusas">
-		<p class="validateTips">Visi laukai privalomi</p>
-		<p id="pav_veiksmo"></p>
-		<form id="autobuso_forma" method="POST">
-			<fieldset>
-				<input type="hidden" name="id" id="id" value="0">
-				<label for="modelis">modelis</label>
-				<input type="text" name="modelis" id="modelis" value="" class="text ui-widget-content ui-corner-all" required>
-				<label for="metai">metai</label>
-				<input type="number" name="metai" id="metai" value="0" class="text ui-widget-content ui-corner-all" required>
-				<label for="klase">Klase</label>
-				<input type="text" name="klase" id="klase" value="" class="text ui-widget-content ui-corner-all" required>
-				<label for="kaina_km">Kaina km</label>
-				<input type="number" name="kaina_km" id="kaina_km" value="0" class="text ui-widget-content ui-corner-all" required>
-				<label for="kaina_val">Kaina val</label>
-				<input type="number" name="kaina_val" id="kaina_val" value="0" class="text ui-widget-content ui-corner-all" required>
-				<label for="vietu_sk">Vietu skaicius</label>
-				<input type="number" name="vietu_sk" id="vietu_sk" value="0" class="text ui-widget-content ui-corner-all" required>
-				<label for="imones_id">Imones id</label>
-				<input type="number" name="imones_id" id="imones_id" value="0" class="text ui-widget-content ui-corner-all" required>
-				<br>
-				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-			</fieldset>
-		</form>
+
 	</div>
-	<div id="main">
-		<h3>Esami autobusai</h3>
-		<button id="create-autobusa">Irašyti autobusą</button>
-		<div id="autobusai">
-		</div>
-	</div>
-	<div id="dialog-confirm" title="Ištrinti įrašą?">
-		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
-		<p>Šis įrašas <span id="pav_autobuso"></span> bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
-		<form id="salinimo_forma" method="POST">
-			<input type="hidden" name="id" id="id" value="0">
-			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-		</form>-->
-	</div>
-	<div id="autobusai">
+	<div id="nuorodos">
 	</div>
 </body>
 </html>
