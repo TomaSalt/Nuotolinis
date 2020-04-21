@@ -37,7 +37,7 @@
 	<script th:inline="javascript">
     
 		$( document ).ready ( function() {
-				crudNuorodos = function(
+				crudAutobusai = function(
 			
 				fields
 				, fields_names
@@ -108,16 +108,16 @@
 				}
 			}
 				
-			crudNuorodos.prototype = Object.create( crud.prototype ); // new crud;			// (OS/eilute 2)
+			crudAutobusai.prototype = Object.create( crud.prototype ); // new crud;			// (OS/eilute 2)
 				
-			crudNuorodos.prototype.constructor = crudNuorodos;						// (OS/eilute 3)
+			crudAutobusai.prototype.constructor = crudAutobusai;						// (OS/eilute 3)
 																				
-			crudNuorodos.prototype.htmDialogoEditFields = function ( i_am  ) {			//  .. ir paveldejimas ir polimorfizmas pagal https://toranbillups.com/blog/archive/2013/05/15/Basic-javascript-inheritance-and-polymorphism/
+			crudAutobusai.prototype.htmDialogoEditFields = function ( i_am  ) {			//  .. ir paveldejimas ir polimorfizmas pagal https://toranbillups.com/blog/archive/2013/05/15/Basic-javascript-inheritance-and-polymorphism/
 				
 													
 				options_imones = '';
 				options_autobusai = '';
-				crud.prototype.htmDialogoEditFields ( i_am, [ 'modelis', 'metai', 'klase', 'kaina_km', 'kaina_val', 'vietu_sk', 'imones_id' ] );																			
+																							
 				for ( i= 0; i < this.autobusai.length; i++ ) {
 				
 					options_autobusai += '<option value="' + this.autobusai [ i ].modelis + '">' + this.autobusai [ i ].modelis + '</option>';
@@ -127,17 +127,12 @@
 						'<select type="text" name="modelis" id="modelis" class="text ui-widget-content ui-corner-all">' +
 							options_autobusai +
 						'</select>';
-				i_am.params.res_str += '<label for="metai">metai</label>' +
-							'<input type="text" name="metai" id="metai" value="" class="text ui-widget-content ui-corner-all" required>';
+				crud.prototype.htmDialogoEditFields ( i_am, [ 'metai']);
+	
 				i_am.params.res_str += 	'<label for="klase">Klase</label>' +
-							'<input type="radio" name="liukso" value="liukso" style="display: inline-block"> - liukso' +
-							'<input type="radio" name="ekonomine" value="ekonomine" style="display: inline-block"> - ekonomine';
-				i_am.params.res_str += 	'<label for="kaina_km">Kaina km</label>' +
-							'<input type="number" name="kaina_km" id="kaina_km" value="0" class="text ui-widget-content ui-corner-all" required>';
-				i_am.params.res_str += 	'<label for="kaina_val">Kaina val</label>' +
-							'<input type="number" name="kaina_val" id="kaina_val" value="0" class="text ui-widget-content ui-corner-all" required>';
-				i_am.params.res_str += 	'<label for="vietu_sk">Vietu_sk</label>' +
-							'<input type="number" name="vietu_sk" id="vietu_sk" value="0" class="text ui-widget-content ui-corner-all" required>';
+							'<input type="radio" name="klase" id="liukso" value="liukso" style="display: inline-block"> - liukso' +
+							'<input type="radio" name="klase" id="ekonomine" value="ekonomine" style="display: inline-block"> - ekonomine';
+				crud.prototype.htmDialogoEditFields ( i_am, ['kaina_km', 'kaina_val','vietu_sk'] );
 				for ( i= 0; i < this.imones.length; i++ ) {
 																			
 					options_imones += '<option value="' + this.imones [ i ].id + '">' + this.imones [ i ].pav + '</option>';
@@ -147,18 +142,8 @@
 							options_imones +
 						'</select>';
 			}
-/*				
-			crudPatiekaloProduktu.prototype.addColumns = function () {
-			
-				return '<td>bla bla</td>';
-			}
-			
-			crudPatiekaloProduktu.prototype.addHeadColumns = function () {
-			
-				return '<th>Bla</th>';
-			}				
-*/																				
-			crud_nuorodos = new crudNuorodos ( 
+																				
+			crud_Autobusai = new crudAutobusai ( 
 
 				[
 					'modelis' 
@@ -192,7 +177,7 @@
 				,  [ 'select', 'number', 'radio', 'number', 'number', 'number', 'select' ]
 			);
 
-			crud_nuorodos.getAutobusai();
+			crud_Autobusai.getAutobusai();
 			
 		});
 		
@@ -205,7 +190,7 @@
 		</nav>
 
 	</div>
-	<div id="nuorodos">
+	<div id="autobusai">
 	</div>
 </body>
 </html>
