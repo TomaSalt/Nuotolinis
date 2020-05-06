@@ -6,7 +6,7 @@ import org.hibernate.Session;
 public class Filtrai {
 		
 	protected Session em;	
-	private List<String> stulp_pavadinimai;
+	
 
 	public Filtrai (  Session em  ) {
 		
@@ -14,11 +14,9 @@ public class Filtrai {
 	}	
   
 	public List<GyventojuDuomenys> gyventojuDuomenys ( Integer salis_id, Integer pagal_lyti, Integer pagal_gyv_mieste, Integer pagal_salis, Integer amz_ribos ) {
-		stulp_pavadinimai = new ArrayList<>();
-		stulp_pavadinimai.add("Salis");
+
 		String group_by = " GROUP BY ";
 		String kablelis = "";
-		Integer amzius = 0;
 		String select_gyventoju_duomenys = 
 			"SELECT "
 			+ "`salys`.`pav` AS `Salis`";
@@ -31,37 +29,34 @@ public class Filtrai {
 		select_gyventoju_duomenys += ",`pavadinimas` AS `Miestas`";
 		group_by += kablelis + "`miestai`.`id`";
 		kablelis = ",";
-		stulp_pavadinimai.add("Miestas");
+		
 		if(pagal_lyti == 1 ) {
 			select_gyventoju_duomenys += ",`gyventojai`.`lytis` AS `Lytis`";
 			group_by += kablelis + "`gyventojai`.`lytis`";
 			kablelis = ",";
-			stulp_pavadinimai.add("Lytis");
+			
 		}
 		if(pagal_gyv_mieste == 1) {
 			select_gyventoju_duomenys += ",`gyventojai`.`flag_gyv_mieste` AS `Gyv. mieste`";
 			group_by += kablelis + "`gyventojai`.`flag_gyv_mieste`";
 			kablelis = ",";
-			stulp_pavadinimai.add("Gyvena mieste");
+			
 		}
 		if(amz_ribos != 0) {
 			select_gyventoju_duomenys += ",`gyventojai`.`amz_grupes` AS `Amziu grupes`";
 			group_by += kablelis + "`gyventojai`.`amz_grupes`";
-			stulp_pavadinimai.add("Amziu grupe");
+			
 		}
 		select_gyventoju_duomenys += ",SUM(`gyventojai`.`kiekis`) AS `Kiekis`"
 			+ " FROM `miestai`"
 			+ " LEFT JOIN `gyventojai` ON(`miestai`.`id` = `gyventojai`.`id_miesto`)"
 			+ " LEFT JOIN `salys` ON(`miestai`.`id_salies` = `salys`.`id`)";
-		stulp_pavadinimai.add("Kiekis");
+		
 		if(salis_id != 0) {
 			select_gyventoju_duomenys += " WHERE `salys`.`id`=" + salis_id;
 		}
 		select_gyventoju_duomenys += group_by;
-		while(amzius <= 85) {
-		 	stulp_pavadinimai.add(amzius + "-" + (amzius + amz_ribos));
-			amzius += amz_ribos;
-		}
+
 		System.out.println ( select_gyventoju_duomenys );
 	    Query query = em.createNativeQuery ( select_gyventoju_duomenys );
 /*
@@ -84,14 +79,6 @@ public class Filtrai {
 		,IF(( 80 < `gyventojai`.`amz_grupes` AND `gyventojai`.`amz_grupes` <= 85), `gyventojai`.`kiekis`, "0") AS `81-85`
 		,IF(( `gyventojai`.`amz_grupes` > 85), `gyventojai`.`kiekis`, "0") AS `>85`*/
 	    return (List<GyventojuDuomenys>) query.getResultList(); 
-	}
-
-	public List<String> getStulp_pavadinimai() {
-		return stulp_pavadinimai;
-	}
-
-	public void setStulp_pavadinimai(List<String> stulp_pavadinimai) {
-		this.stulp_pavadinimai = stulp_pavadinimai;
 	}
 	
 }

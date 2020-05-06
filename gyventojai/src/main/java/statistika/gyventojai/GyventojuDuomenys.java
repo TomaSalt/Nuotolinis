@@ -14,7 +14,14 @@ public class GyventojuDuomenys implements Serializable{
 	
 	public GyventojuDuomenys() {
 	}
-
+	/*public GyventojuDuomenys(String salis, String miestas, String lytis, Integer flag_gyv_mieste, Integer amz_grupes, Integer kiekis) {
+		this.salis = salis;
+		this.miestas = miestas;
+		this.lytis = lytis;
+		this.flag_gyv_mieste = flag_gyv_mieste;
+		this.amz_grupes = amz_grupes;
+		this.kiekis = kiekis;
+	}*/
 	public String getSalis() {
 		return salis;
 	}

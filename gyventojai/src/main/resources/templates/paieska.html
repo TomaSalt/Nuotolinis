@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+	<title>Paieska</title>
+	<meta charset="utf-8">
 	<style>
 		table {
 		  border-collapse: collapse;
@@ -10,48 +12,21 @@
 		  border: 1px solid black;
 		}
 	</style>
+	<script 
+		src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous">
+	</script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script>
-	$( function() {
+	<script th:inline="javascript">
+	$( document ).ready( function() {
 
-		$( "#paieska" ).button().on( "click", function() {
-			var stulp_kiekis = 3;
-			var stulp_pav = ["Salis", "Miestas"];
-			var pagal_lyti = $('#pagal_lyti').is(':checked');
-			if(pagal_lyti == true){
-				stulp_kiekis += 1;
-				stulp_pav.push("Lytis");				
-			}
-			var pagal_gyv_mieste = $('#pagal_gyv_mieste').is(':checked');
-			if(pagal_gyv_mieste == true){
-				stulp_kiekis += 1;
-				stulp_pav.push("Gyvena_mieste");
-			}
-			var sumuoti_pagal_salis = $('#sumuoti_pagal_salis').is(':checked');
+		$( "#veiksmas" ).button().on( "click", function() {
 
-			var salis = $('#salis').val();
-			var amziu_ribos = $('#amziu_ribos').val();
-			if(amziu_ribos != 0){
-				stulp_kiekis += 1;
-				stulp_pav.push("Amziu_ribos");
-			}
-			stulp_pav.push("Kiekis");
-			var Stulpsarasas = "<tr>";
-			for(i=0; i< stulp_kiekis; i++){
-				Stulpsarasas += "<tr>" + stulp_pav[i] + "</tr>";
-			}
-			Stulpsarasas = "</tr>";
-			var HTMLsarasas = "<tr th:each=\"sarasas : ${lst_gyv_duomenu}\">";
-			for(i=0; i< stulp_kiekis; i++){
-				HTMLsarasas += "<td th:text=\"${sarasas["+ i + "]}\"></td>";
-			}
-			HTMLsarasas += "</tr>";
-			HTMLsarasas = "tuscias";
-			Stulpsarasas = "tuscias";
-			$("#stulpPav").html(Stulpsarasas);
-			$("#duomenysHTML").html(HTMLsarasas);
-			$( "#veiksmas" ).val ( 'ieskoti' );
+			$( "#veiksmas" ).val ( "ieskoti" );
+			/*var pasirinktas = $("#amziu_ribos :selected").val();
+			$("#amziu_ribos").val(pasirinktas);*/
 			$( "#paieskos_forma" ).submit();
 		});
 	});
@@ -75,10 +50,10 @@
 			<label for="pagal_lyti">skirstyti pagal lyti</label><br>
 			<input type="checkbox" name="pagal_gyv_mieste" id="pagal_gyv_mieste" value="1" checked>
 			<label for="pagal_lyti">skirstyti pagal gyv. mieste</label><br>
-			<input type="checkbox" name="sumuoti_pagal_salis" id="sumuoti_pagal_salis" value="1" checked>
+			<input type="checkbox" name="pagal_salis" id="pagal_salis" value="1" checked>
 			<label for="pagal_lyti">sumuoti pagal salis</label><br>
 			<label for="amziu_ribos">Amziu ribos</label>
-			<select name="amziu_ribos" id="amziu_ribos" value="5">
+			<select name="amz_ribos" id="amz_ribos" value="5">
 				<option value="0">be ribu</option>
 				<option value="5" selected>5m.</option>
 				<option value="10">10m.</option>
@@ -90,17 +65,28 @@
 		</fieldset>
 	</form>
 </div>
-<table>
+
 	<div id="stulpPav">
 	jau baigia nusibosti
-	<!--	<tr>
-			<th th:each="sarasas_stulp : ${stulp_pavadinimai}">
+	<table>
+		<tr>
+			<th th:each = "sarasas_stulp : ${stulp_pavadinimai}" th:text="${sarasas_stulp}"> 
 			</th>
+		</tr>
+		<!--<tr th:each="sarasas : ${lst_gyv_duomenu}">
+			<td th:text="${sarasas[0]}"></td>
+			<td th:text="${sarasas[1]}"></td>
+			<td th:text="${sarasas[2]}"></td>
+			<td th:text="${sarasas[3]}"></td>
+			<td th:text="${sarasas[4]}"></td>
+			<td th:text="${sarasas[5]}"></td>
 		</tr>-->
+	</table>
 	</div>
+	
 	<div id="duomenysHTML">
 	jau baigia nusibosti
 	</div>
-</table>
+
 </body>
 </html>
