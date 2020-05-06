@@ -28,10 +28,10 @@ public class PageController {
 	
 	@RequestMapping(path="/paieska", method={ RequestMethod.GET, RequestMethod.POST })
 	public String paieska(
-    		@RequestParam(name="salis_id ", required=false, defaultValue="0") Integer salis_id
-    		, @RequestParam(name="pagal_lyti", required=false, defaultValue="1") Integer pagal_lyti
-    		, @RequestParam(name="pagal_gyv_mieste", required=false, defaultValue="1") Integer pagal_gyv_mieste
-    		, @RequestParam(name="pagal_salis", required=false, defaultValue="1") Integer pagal_salis
+    		@RequestParam(name="salis_id", required=false, defaultValue="0") Integer salis_id
+    		, @RequestParam(name="pagal_lyti", required=false, defaultValue="0") Integer pagal_lyti
+    		, @RequestParam(name="pagal_gyv_mieste", required=false, defaultValue="0") Integer pagal_gyv_mieste
+    		, @RequestParam(name="pagal_salis", required=false, defaultValue="0") Integer pagal_salis
     		, @RequestParam(name="amz_ribos", required=false, defaultValue="5") Integer amz_ribos
     		, @RequestParam(name="veiksmas", required=false, defaultValue="neieskoti") String veiksmas
     		, Model model 
@@ -45,16 +45,16 @@ public class PageController {
 			
 			Filtrai gyv_duomenu_filtrai =  new Filtrai ( session );
 	        model.addAttribute( "lst_gyv_duomenu", gyv_duomenu_filtrai.gyventojuDuomenys( salis_id, pagal_lyti, pagal_gyv_mieste, pagal_salis, amz_ribos ) ); 
-        
+	        model.addAttribute( "stulp_pavadinimai", gyv_duomenu_filtrai.getStulp_pavadinimai());
         }  else  {
         	
         	model.addAttribute( "lst_gyv_duomenu", new ArrayList<GyventojuDuomenys>() );
         }
-      
+    
         /*model.addAttribute( "lst_menu", Menu.values() ); */
         /*model.addAttribute( "back_end_message", back_end_message );*/
-        /*model.addAttribute( "lst", maistines_medz_rep.findAll() );*/
         
+       
         return "paieska";
     }
 

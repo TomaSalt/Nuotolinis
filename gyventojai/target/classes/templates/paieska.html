@@ -14,14 +14,45 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
 	$( function() {
-		
+
 		$( "#paieska" ).button().on( "click", function() {
-			/*var pagal_lyti = $('#pagal_lyti').is(':checked');
+			var stulp_kiekis = 3;
+			var stulp_pav = ["Salis", "Miestas"];
+			var pagal_lyti = $('#pagal_lyti').is(':checked');
+			if(pagal_lyti == true){
+				stulp_kiekis += 1;
+				stulp_pav.push("Lytis");				
+			}
 			var pagal_gyv_mieste = $('#pagal_gyv_mieste').is(':checked');
+			if(pagal_gyv_mieste == true){
+				stulp_kiekis += 1;
+				stulp_pav.push("Gyvena_mieste");
+			}
 			var sumuoti_pagal_salis = $('#sumuoti_pagal_salis').is(':checked');
-			$('#salis')*/
-			$( '#veiksmas' ).val ( 'ieskoti' );
-			$( '#paieskos_forma' ).submit();
+
+			var salis = $('#salis').val();
+			var amziu_ribos = $('#amziu_ribos').val();
+			if(amziu_ribos != 0){
+				stulp_kiekis += 1;
+				stulp_pav.push("Amziu_ribos");
+			}
+			stulp_pav.push("Kiekis");
+			var Stulpsarasas = "<tr>";
+			for(i=0; i< stulp_kiekis; i++){
+				Stulpsarasas += "<tr>" + stulp_pav[i] + "</tr>";
+			}
+			Stulpsarasas = "</tr>";
+			var HTMLsarasas = "<tr th:each=\"sarasas : ${lst_gyv_duomenu}\">";
+			for(i=0; i< stulp_kiekis; i++){
+				HTMLsarasas += "<td th:text=\"${sarasas["+ i + "]}\"></td>";
+			}
+			HTMLsarasas += "</tr>";
+			HTMLsarasas = "tuscias";
+			Stulpsarasas = "tuscias";
+			$("#stulpPav").html(Stulpsarasas);
+			$("#duomenysHTML").html(HTMLsarasas);
+			$( "#veiksmas" ).val ( 'ieskoti' );
+			$( "#paieskos_forma" ).submit();
 		});
 	});
 </script>
@@ -32,7 +63,7 @@
 	<form id="paieskos_forma" method="POST">
 		<fieldset>
 			<label for="salis">salis</label>
-			<select name="salis" id="salis" value="1">
+			<select name="salis_id" id="salis_id" value="1">
 				<option value="0">visos</option>
 				<option value="1">Lietuva</option>
 				<option value="2">UK</option>
@@ -60,83 +91,16 @@
 	</form>
 </div>
 <table>
-	<tr>
-		<th>
-			Salis
-		</th>
-		<th>
-			Miestas
-		</th>
-		<th>
-			Lytis
-		</th>
-		<th>
-			Gyv. mieste
-		</th>
-		<th>
-			0-5
-		</th>
-		<th>
-			6-10
-		</th>
-		<th>
-			11-15
-		</th>
-		<th>
-			16-20
-		</th>
-		<th>
-			21-25
-		</th>
-		<th>
-			26-30
-		</th>
-		<th>
-			31-35
-		</th>
-		<th>
-			36-40
-		</th>
-		<th>
-			41-45
-		</th>		
-		<th>
-			46-50
-		</th>
-		<th>
-			51-55
-		</th>
-		<th>
-			56-60
-		</th>
-		<th>
-			61-65
-		</th>
-		<th>
-			66-70
-		</th>
-		<th>
-			71-75
-		</th>
-		<th>
-			76-80
-		</th>
-		<th>
-			81-85
-		</th>
-		<th>
-			>85
-		</th>
-	</tr>
-	<tr th:each="sarasas : ${lst_gyv_duomenu}">
-		<td th:text="${sarasas[0]}"></td>
-		<td th:text="${sarasas[1]}"></td>
-		<td th:text="${sarasas[2]}"></td>
-		<td th:text="${sarasas[3]}"></td>
-		<td th:text="${sarasas[4]}"></td>
-		<td th:text="${sarasas[5]}"></td>
-	
-	</tr>
+	<div id="stulpPav">
+	jau baigia nusibosti
+	<!--	<tr>
+			<th th:each="sarasas_stulp : ${stulp_pavadinimai}">
+			</th>
+		</tr>-->
+	</div>
+	<div id="duomenysHTML">
+	jau baigia nusibosti
+	</div>
 </table>
 </body>
 </html>
