@@ -60,15 +60,18 @@ public class PageController {
         /*model.addAttribute( "lst_menu", Menu.values() ); */
         /*model.addAttribute( "back_end_message", back_end_message );*/
         List<String> stulp_pavadinimai;
+        Integer stulp_kiekis = 4;
         Integer amzius = 0;
 		stulp_pavadinimai = new ArrayList<>();
 		stulp_pavadinimai.add("Salis");
 		stulp_pavadinimai.add("Miestas");
 		if(pagal_lyti == 1) {
 			stulp_pavadinimai.add("Lytis");
+			stulp_kiekis += 1;
 		}
 		if(pagal_gyv_mieste == 1) {
 			stulp_pavadinimai.add("Gyvena mieste");
+			stulp_kiekis += 1;
 		}
 		stulp_pavadinimai.add("Amziu grupe");
 		stulp_pavadinimai.add("Kiekis");
@@ -77,6 +80,7 @@ public class PageController {
 			amzius += amz_ribos;
 		}
 		model.addAttribute( "stulp_pavadinimai", stulp_pavadinimai);
+		model.addAttribute( "stulp_kiekis", stulp_kiekis);
         return "paieska";
     }
 
